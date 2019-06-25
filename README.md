@@ -2,8 +2,8 @@
 angular-dc-test
 
 Tutorials:
-[https://animateddata.co.uk/articles/crossfilter/]
-[https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick]
+## [https://animateddata.co.uk/articles/crossfilter/]
+## [https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick]
 
 Ideas:
 
