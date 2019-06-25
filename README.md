@@ -2,12 +2,11 @@
 angular-dc-test
 
 Tutorials:
-```
 [https://animateddata.co.uk/articles/crossfilter/]
 [https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick]
-```
+
 Ideas:
-```
+
 0. angular dc typings - [https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/dc/dc-tests.ts]
 1. Two charts with same dim. do not filter.  Create duplicate dims. Instead.* 
 2. Add chloropleth map. - see if region edits, if not use state or dma etc.
@@ -34,8 +33,9 @@ https://github.com/HamsterHuey/intothevoid.io/blob/master/code/2017/dcjs%20sorta
 19. Switching time intervals
 20. Aggregated Data - https://dc-js.github.io/dc.js/examples/table-on-aggregated-data.html
 21. Reduct.io - https://github.com/dc-js/dc.js/blob/b6bb3b214a1b1302fd65f6732ef2f1beb40ab62a/web/examples/sunburst-with-value-accessor.html (edited) 
-```
-# COMMON PITFALLS IN DASHBOARD DESIGN (Steven Few) - [http://www.perceptualedge.com/]
+
+# COMMON PITFALLS IN DASHBOARD DESIGN (Steven Few) 
+### [http://www.perceptualedge.com/]
 
 Knowing what to avoid isn’t everything, but it’s a good start. 
 Here’s a list of the 13 mistakes that I’ll describe in detail:
