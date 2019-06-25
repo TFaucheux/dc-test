@@ -3,15 +3,15 @@ angular-dc-test
 
 Tutorials:
 ```
-https://animateddata.co.uk/articles/crossfilter/
-https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick
+[https://animateddata.co.uk/articles/crossfilter/]
+[https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick]
 ```
 Ideas:
 ```
-0. angular dc typings - https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/dc/dc-tests.ts
+0. angular dc typings - [https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/dc/dc-tests.ts]
 1. Two charts with same dim. do not filter.  Create duplicate dims. Instead.* 
 2. Add chloropleth map. - see if region edits, if not use state or dma etc.
-https://jsfiddle.net/djmartin_umich/9VJHe/
+[https://jsfiddle.net/djmartin_umich/9VJHe/]
 2b. Leaflet - https://github.com/Intellipharm/dc-addons#leafletjs
 3. Scatterplot chart - explore Reductio exception
 4. Line charts - see Stephen few percentage technique.
