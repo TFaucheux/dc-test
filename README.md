@@ -6,7 +6,9 @@ This Repo: https://github.com/TFaucheux/dc-test
 ```
 Instructions:
   npm install
-  ng serve
+  ng serve 
+     or
+  nb build --prod
 ```
 ### Tutorials:
 #### https://animateddata.co.uk/articles/crossfilter/
