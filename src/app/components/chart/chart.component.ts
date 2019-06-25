@@ -3,7 +3,6 @@ import {Component, ViewChild, ElementRef, AfterViewInit, OnInit} from '@angular/
 import * as d3 from 'd3';
 import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
-import {IData} from '../../models/Data';
 
 @Component({
   selector: 'app-chart',
@@ -13,60 +12,25 @@ import {IData} from '../../models/Data';
 })
 export class ChartComponent implements OnInit, AfterViewInit {
   title = 'dc.js sub-chart works!';
-  public data: Array<IData>;
-  myData: any;
 
   @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
-  // barChart: dc.BarChart = dc.barChart(this.chartDiv.nativeElement);
-  barChart2: dc.BarChart = dc.barChart('#chartDiv');
+  //private barChart: dc.BarChart = dc.barChart('chartDiv'); // this.chartDiv.nativeElement);
 
-  constructor(public ndxService: NdxService) {
+  constructor(private ndxService: NdxService) {
   }
 
   ngOnInit() {
     console.log('0. chart.component: ngOnInit() - started');
-/*
-    // subscribe to the postsData Stream
-    this.ndxService.Data.subscribe(( data: Array<IData>) => {
-
-      // mimic a slow connection
-      setTimeout(() => {
-        // set data
-        this.data = data;
-      }, 5000);
-    });
-
-    // make the http request
-    // this.ndxService.loadAllData();
-    // this.myData = this.ndxService.getData();
-    console.log('0. chart.component: ngOnInit() - ' + (this.ndxService.data));
-  */
-  }
-
-  refreshData() {
-    // re-set the ui
-    // this.data.length = 0;
-
-    // make the http request
-    // this.ndxService.loadAllData();
-    // this.myData = this.ndxService.getData();
-    // console.log('refreshData() - ' + JSON.stringify(this.myData));
   }
 
   ngAfterViewInit() {
     console.log ('chart.component: ngAfterViewInit() - started');
-    // console.log ('ngAfterViewInit() - ' + this.chartDiv.nativeElement);
-    // this.myData = JSON.stringify(this.ndxService.data);
-    // console.log('ngAfterViewInit() - myData:' + this.myData);
-
+    console.log(this.ndxService.isLoaded);
     if (this.ndxService.isLoaded) {
-      console.log('1. chart.component: ngAfterViewInit() - ' + this.ndxService.data);
-      console.log('2. chart.component: ngAfterViewInit() - ' + this.data);
-      console.log('3. chart.component: ngAfterViewInit() - ' + this.myData);
 
-      // const chart = dc.barChart(this.chartDiv.nativeElement);
+      const barChart = dc.barChart(this.chartDiv.nativeElement);
 
-      this.barChart2
+      barChart
         .dimension(this.ndxService.runDimension)
         .group(this.ndxService.speedSumGroup)
         .width(768)
@@ -80,7 +44,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
           });
         });
 
-      this.barChart2.render();
+      barChart.render();
     }
+
     }
 }
