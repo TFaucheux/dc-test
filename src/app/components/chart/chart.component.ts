@@ -26,8 +26,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     console.log ('chart.component: ngAfterViewInit() - started');
     console.log(this.ndxService.isLoaded);
-    if (this.ndxService.isLoaded) {
-
+    this.isLoaded = this.ndxService.isLoaded;
+    if (this.isLoaded) {
       const barChart = dc.barChart(this.chartDiv.nativeElement);
 
       barChart
