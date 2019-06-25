@@ -4,7 +4,7 @@
 #### https://animateddata.co.uk/articles/crossfilter/
 #### https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick
 
-#### Ideas:
+#### Tasks/Ideas:
 0. angular dc typings - [https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/dc/dc-tests.ts]
 1. Two charts with same dim. do not filter.  Create duplicate dims. Instead.* 
 2. Add chloropleth map. - see if region edits, if not use state or dma etc.
