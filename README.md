@@ -3,8 +3,8 @@
 
 This Repo: https://github.com/TFaucheux/dc-test
 
+* Instructions:
 ```
-Instructions:
   npm install
   ng serve 
      or
