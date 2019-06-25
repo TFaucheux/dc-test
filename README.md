@@ -1,6 +1,5 @@
-# dc-test
-## angular-dc-test
-
+# dc-test: angular-dc-test
+(numerous sources and helpful tutorials on line helped produce this working example)
 ### Tutorials:
 #### https://animateddata.co.uk/articles/crossfilter/
 #### https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick
