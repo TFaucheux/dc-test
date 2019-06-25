@@ -45,8 +45,8 @@ https://github.com/HamsterHuey/intothevoid.io/blob/master/code/2017/dcjs%20sorta
 # COMMON PITFALLS IN DASHBOARD DESIGN (Steven Few) 
 ### [http://www.perceptualedge.com/]
 
-Knowing what to avoid isn’t everything, but it’s a good start. 
-Here’s a list of the 13 mistakes that I’ll describe in detail:
+"Knowing what to avoid isn’t everything, but it’s a good start. 
+Here’s a list of the 13 mistakes that I’ll describe in detail":
 ```
 1. Exceeding the boundaries of a single screen
 2. Supplying inadequate context for the data
