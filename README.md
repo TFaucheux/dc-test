@@ -3,6 +3,11 @@
 
 This Repo: https://github.com/TFaucheux/dc-test
 
+```
+Instructions:
+  npm install
+  ng serve
+```
 ### Tutorials:
 #### https://animateddata.co.uk/articles/crossfilter/
 #### https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick
