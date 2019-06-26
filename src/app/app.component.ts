@@ -10,7 +10,7 @@ import {Component, OnInit, AfterViewInit} from '@angular/core';
               './app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = 'AppComponent title works!';
+  title = 'My title about whatever this is.';
 
   constructor() {
   }

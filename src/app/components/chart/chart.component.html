@@ -1,4 +1,4 @@
-<div *ngIf="isLoaded">
-   <div #chartDiv></div>
+<div #chartContainer *ngIf="ndxService.isLoaded">
+   <div #chartDiv (window:resize)="onResize()"></div>
 </div>
 
