@@ -5,37 +5,36 @@ import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
 
 @Component({
-  selector: 'app-chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.css'],
+  selector: 'app-barchart',
+  templateUrl: './barchart.component.html',
+  styleUrls: ['./barchart.component.css'],
   providers: []
 })
-export class ChartComponent implements OnInit, AfterViewInit {
+export class BarChartComponent implements OnInit, AfterViewInit {
   public title = 'dc.js sub-chart works!';
   public isLoaded = false;
   public barChart: dc.BarChart;
 
-  @ViewChild('chartContainer', {static: false}) chartContainer: ElementRef;
-  @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
+  @ViewChild('barChartContainer', {static: false}) barChartContainer: ElementRef;
+  @ViewChild('barChartDiv', {static: false}) barChartDiv: ElementRef;
 
   constructor(public ndxService: NdxService) {
   }
 
   ngOnInit() {
-    console.log('0. chart.component: ngOnInit() - started');
+    console.log('0. barChart.component: ngOnInit() - started');
   }
 
   ngAfterViewInit() {
-    console.log('chart.component: ngAfterViewInit() - started');
+    console.log('barChart.component: ngAfterViewInit() - started');
     this.isLoaded = this.ndxService.isLoaded;
     // console.log(this.ndxService.isLoaded, this.isLoaded);
     if (this.isLoaded) {
 
-      // console.log(this.chartContainer.nativeElement.offsetWidth, this.chartDiv.nativeElement.offsetWidth);
+      // console.log(this.barChartContainer.nativeElement.offsetWidth, this.barChartDiv.nativeElement.offsetWidth);
 
-      const barChart = dc.barChart(this.chartDiv.nativeElement);
+      const barChart = dc.barChart(this.barChartDiv.nativeElement);
       this.barChart = barChart;
-
 
       this.barChart
           .dimension(this.ndxService.runDimension)
@@ -53,8 +52,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
           })
           .on('preRedraw', chart => {
             // console.log('resize(chart) - started')
-            const width: number = this.chartDiv.nativeElement.offsetWidth;
-            const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
+            const width: number = this.barChartDiv.nativeElement.offsetWidth;
+            const newWidth: number = this.barChartContainer.nativeElement.offsetWidth;
             // console.log(width, newWidth);
 
             chart.width(newWidth).transitionDuration(0);

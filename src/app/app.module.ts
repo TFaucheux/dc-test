@@ -4,6 +4,7 @@ import { HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { BarChartComponent } from './components/barchart/barchart.component';
 import { NdxService } from './services/ndx.service';
 import {NdxProvider} from './ndx-provider';
 
@@ -14,7 +15,8 @@ export function ndxProviderFactory(provider: NdxProvider) {
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent
+    ChartComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
