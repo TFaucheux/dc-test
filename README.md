@@ -16,6 +16,9 @@ This Repo: https://github.com/TFaucheux/dc-test
 #### https://animateddata.co.uk/articles/crossfilter/
 #### https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick
 
+### Examples:
+#### https://dc-js.github.io/dc.js/examples/
+
 #### Tasks/Ideas:
 0. angular dc typings - [https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/dc/dc-tests.ts]
 1. Two charts with same dim. do not filter.  Create duplicate dims. Instead.* 
