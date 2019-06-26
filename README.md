@@ -12,6 +12,7 @@ This Repo: https://github.com/TFaucheux/dc-test
   nb build --prod
 ```
 ### Tutorials:
+#### https://dc-js.github.io/dc.js/docs/stock.html
 #### https://animateddata.co.uk/articles/crossfilter/
 #### https://www.codeproject.com/Articles/703261/Making-Dashboards-with-Dc-js-Part-3-Tips-and-Trick
 
