@@ -1,31 +1,60 @@
 <div class="banner-app"><i class="fa fa-globe" aria-hidden="true"></i><h1>Sample Data</h1></div>
 <div class="container">
-<h1 class="text-center">
+
+    <h1 class="text-center">
   {{title}}
 </h1>
+
   <div class="row">
     <div class="col-md-4 bg-success">
-       <app-chart></app-chart>
+       <app-numberchart></app-numberchart>
     </div>
     <div class="col-md-4 bg-warning">
-       <app-chart></app-chart>
+       <app-numberchart></app-numberchart>
     </div>
     <div class="col-md-4 bg-danger">
-       <app-chart></app-chart>
+       <app-numberchart></app-numberchart>
     </div>
   </div>
+
+    <div class="row">
+        <div class="col-md-4 bg-success">
+            <app-piechart></app-piechart>
+        </div>
+        <div class="col-md-4 bg-warning">
+            <app-piechart></app-piechart>
+        </div>
+        <div class="col-md-4 bg-danger">
+            <app-piechart></app-piechart>
+        </div>
+    </div>
+
   <div class="row">
-    <div class="col-md-4 bg-info">
-       <app-barchart></app-barchart>
+    <div class="col-md-4 bg-success">
+       <app-scatterplot></app-scatterplot>
     </div>
-    <div class="col-md-4 bg-dark">
-       <app-barchart></app-barchart>
+    <div class="col-md-4 bg-warning">
+       <app-scatterplot></app-scatterplot>
     </div>
-    <div class="col-md-4 bg-secondary">
-       <app-barchart></app-barchart>
+    <div class="col-md-4 bg-danger">
+       <app-scatterplot></app-scatterplot>
     </div>
   </div>
+
+    <div class="row">
+        <div class="col-md-4 bg-success">
+            <app-barchart></app-barchart>
+        </div>
+        <div class="col-md-4 bg-warning">
+            <app-barchart></app-barchart>
+        </div>
+        <div class="col-md-4 bg-danger">
+            <app-barchart></app-barchart>
+        </div>
+    </div>
+
 </div>
+
 <footer>
   &copy; 2019 - myCompany Inc.
 </footer>

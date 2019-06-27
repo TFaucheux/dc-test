@@ -15,14 +15,28 @@ export class NdxService {
   public data: IData[] = [];
   public isLoaded = false;
 
-  @Input() runDimension: Dimension<IData, NaturallyOrderedValue>; 
-  @Input() speedSumGroup: any; 
+  @Input() runDimension: Dimension<IData, NaturallyOrderedValue>;
+  @Input() exptDimension: Dimension<IData, NaturallyOrderedValue>;
+  @Input() speedGroup: any;
+  @Input() speedSumGroup: any;
+  @Input() meanSpeedGroup: any;
+  @Input() average: any;
+  @Input() expCount: any;
+
   // @Input() speedSumGroup: CrossFilter.Group<IData, NaturallyOrderedValue, NaturallyOrderedValue>;
 
   constructor(private ndxProvider: NdxProvider) {
     console.log('ndxService: constructor() - ndxService');
     this.initNdxService();
   }
+
+  /*
+  rnd(a) {
+    return a[Math.floor(Math.random() * a.length)];
+  }
+  */
+
+//  _randVal = Math.floor(Math.random() * (100000)) + 1;
 
   getData(): IData[] {
     console.log('ndxService: getData() - started');
@@ -36,12 +50,31 @@ export class NdxService {
     this.ndx = crossfilter(this.data);
     console.log(this.ndx);
 
-    this.runDimension = this.ndx.dimension((d: IData) => +d.run);
+    this.runDimension = this.ndx.dimension((d: IData) =>{ return [+d.run, +d.expt];});
+    this.speedGroup = this.runDimension.group().reduceSum( d => (d.speed * d.run / 1000) * Math.floor(Math.random() * (1000)) + 1);
     this.speedSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.run / 1000);
+    this.meanSpeedGroup = this.ndx.groupAll().reduce(
+        (p: IData, v: IData) => {
+          ++p.n;
+          p.tot += v.speed;
+          return p;
+        },
+        (p: IData, v: IData) => {
+          --p.n;
+          p.tot -= v.speed;
+          return p;
+        },
+        () => ({n: 0, tot: 0})
+    );
+
+    this.average = d => d.n ? d.tot / d.n : 0;
+    this.expCount = d => d.n;
+
     this.isLoaded = true;
 
     console.log('ndxService: completeData() - this.speedSumGroup.all():');
     console.log(this.speedSumGroup.all());
+    console.log(this.speedGroup.all());
   }
 
  initNdxService() {

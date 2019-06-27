@@ -3,10 +3,13 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { ChartComponent } from './components/chart/chart.component';
 import { BarChartComponent } from './components/barchart/barchart.component';
+import { PieChartComponent } from './components/piechart/piechart.component';
+import { ScatterPlotComponent } from './components/scatterplot/scatterplot.component';
+import { NumberChartComponent } from './components/numberchart/numberchart.component';
+
 import { NdxService } from './services/ndx.service';
-import {NdxProvider} from './ndx-provider';
+import { NdxProvider } from './ndx-provider';
 
 export function ndxProviderFactory(provider: NdxProvider) {
   return () => provider.load();
@@ -15,8 +18,10 @@ export function ndxProviderFactory(provider: NdxProvider) {
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent,
-    BarChartComponent
+    BarChartComponent,
+    PieChartComponent,
+    ScatterPlotComponent,
+    NumberChartComponent
   ],
   imports: [
     BrowserModule,

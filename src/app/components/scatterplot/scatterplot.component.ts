@@ -5,16 +5,16 @@ import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
 
 @Component({
-  selector: 'app-barchart',
-  templateUrl: './barchart.component.html',
-  styleUrls: ['./barchart.component.css'],
+  selector: 'app-scatterplot',
+  templateUrl: './scatterplot.component.html',
+  styleUrls: ['./scatterplot.component.css'],
   providers: []
 })
-export class BarChartComponent implements OnInit, AfterViewInit {
+export class ScatterPlotComponent implements OnInit, AfterViewInit {
 
-  public title = 'dc.js sub-chart works!';
+  public title = 'chart works!';
+  public chart: dc.ScatterPlot;
   public isLoaded = false;
-  public chart: dc.BarChart;
 
   @ViewChild('chartContainer', {static: false}) chartContainer: ElementRef;
   @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
@@ -28,16 +28,21 @@ export class BarChartComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.isLoaded = this.ndxService.isLoaded;
     if (this.isLoaded) {
-      this.chart = dc.barChart(this.chartDiv.nativeElement);
+      this.chart = dc.scatterPlot(this.chartDiv.nativeElement);
       this.chart
+          .width(400).height(220)
           .dimension(this.ndxService.runDimension)
-          .group(this.ndxService.speedSumGroup)
-          .margins({top: 20, right: 20, bottom: 20, left: 20})
-          .width(380)
-          .height(480)
-          .x(d3.scaleLinear().domain([6, 20]))
-          .brushOn(false)
-          .yAxisLabel('This is the Y Axis!')
+          .group(this.ndxService.speedGroup)
+          .margins({top: 10, right: 20, bottom: 30, left: 40})
+          .xAxisLabel('National Avg')
+          .yAxisLabel('Index Score')
+          .x(d3.scaleLinear().domain([1, 20]))
+          //.y(d3.scaleLinear().domain([500, 200]))
+          // .mouseZoomable(true)
+          .renderHorizontalGridLines(true)
+          .renderVerticalGridLines(true)
+          .symbolSize(8)
+          .clipPadding(10)
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
               console.log('click!', d);
@@ -51,7 +56,12 @@ export class BarChartComponent implements OnInit, AfterViewInit {
             chart.transitionDuration(750);
             chart.render();
           });
-
+/*
+      const xAxisChart = this.chart.xAxis();
+      xAxisChart.ticks(6).tickFormat(d3.format('d'));
+      const yAxisChart = this.chart.yAxis();
+      yAxisChart.ticks(6).tickFormat(d3.format('d'));
+*/
       this.chart.render();
     }
   }

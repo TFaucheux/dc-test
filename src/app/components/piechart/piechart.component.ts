@@ -1,20 +1,20 @@
 import {Component, ViewChild, ElementRef, AfterViewInit, OnInit} from '@angular/core';
 
-import * as d3 from 'd3';
+// import * as d3 from 'd3';
 import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
 
 @Component({
-  selector: 'app-barchart',
-  templateUrl: './barchart.component.html',
-  styleUrls: ['./barchart.component.css'],
+  selector: 'app-piechart',
+  templateUrl: './piechart.component.html',
+  styleUrls: ['./piechart.component.css'],
   providers: []
 })
-export class BarChartComponent implements OnInit, AfterViewInit {
+export class PieChartComponent implements OnInit, AfterViewInit {
 
-  public title = 'dc.js sub-chart works!';
+  public title = 'chart works!';
+  public chart: dc.PieChart;
   public isLoaded = false;
-  public chart: dc.BarChart;
 
   @ViewChild('chartContainer', {static: false}) chartContainer: ElementRef;
   @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
@@ -28,16 +28,12 @@ export class BarChartComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.isLoaded = this.ndxService.isLoaded;
     if (this.isLoaded) {
-      this.chart = dc.barChart(this.chartDiv.nativeElement);
+      this.chart = dc.pieChart(this.chartDiv.nativeElement);
       this.chart
+          .width(400).height(220)
           .dimension(this.ndxService.runDimension)
           .group(this.ndxService.speedSumGroup)
-          .margins({top: 20, right: 20, bottom: 20, left: 20})
-          .width(380)
-          .height(480)
-          .x(d3.scaleLinear().domain([6, 20]))
-          .brushOn(false)
-          .yAxisLabel('This is the Y Axis!')
+          .innerRadius(50)
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
               console.log('click!', d);
@@ -51,7 +47,6 @@ export class BarChartComponent implements OnInit, AfterViewInit {
             chart.transitionDuration(750);
             chart.render();
           });
-
       this.chart.render();
     }
   }
