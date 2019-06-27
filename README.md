@@ -19,6 +19,9 @@ This Repo: https://github.com/TFaucheux/dc-test
 ### Examples:
 #### https://dc-js.github.io/dc.js/examples/
 
+### Gitter Discussions:
+#### https://gitter.im/dc-js/dc.js
+
 #### Tasks/Ideas:
 0. angular dc typings - [https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/dc/dc-tests.ts]
 1. Two charts with same dim. do not filter.  Create duplicate dims. Instead.* 
