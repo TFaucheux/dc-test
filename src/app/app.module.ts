@@ -8,6 +8,7 @@ import { AreaChartComponent } from './components/areachart/areachart.component';
 import { LineChartComponent } from './components/linechart/linechart.component';
 import { PieChartComponent } from './components/piechart/piechart.component';
 import { ScatterPlotComponent } from './components/scatterplot/scatterplot.component';
+import { BoxPlotComponent } from './components/boxplot/boxplot.component';
 import { NumberChartComponent } from './components/numberchart/numberchart.component';
 
 import { NdxService } from './services/ndx.service';
@@ -26,6 +27,7 @@ export function ndxProviderFactory(provider: NdxProvider) {
     LineChartComponent,
     PieChartComponent,
     ScatterPlotComponent,
+    BoxPlotComponent,
     NumberChartComponent
   ],
   imports: [
