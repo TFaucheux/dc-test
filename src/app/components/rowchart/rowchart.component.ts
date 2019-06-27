@@ -37,13 +37,13 @@ export class RowChartComponent implements OnInit, AfterViewInit {
           .margins({top: 20, right: 20, bottom: 20, left: 20})
           .width(380)
           .height(300)
-          .elasticX(true)
           .x(d3.scaleLinear().domain([6, 20]))
-          .on('renderlet', chart => {
-            chart.selectAll('rect').on('click', d => {
-              console.log('click!', d);
-            });
-          })
+          .elasticX(true)
+          // .on('renderlet', chart => {
+          //   chart.selectAll('rect').on('click', d => {
+          //     console.log('click!', d);
+          //   });
+          // })
           .on('preRedraw', chart => {
             const width: number = this.chartDiv.nativeElement.offsetWidth;
             const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
