@@ -17,11 +17,17 @@ export class NdxService {
 
   @Input() runDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() runSpeedDimension: Dimension<IData, NaturallyOrderedValue>;
+  @Input() expt2Dimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() exptDimension: Dimension<IData, NaturallyOrderedValue>;
+
+  @Input() exptGroup: any;
   @Input() speedGroup: any;
+
   @Input() speedArrayGroup: any;
+
   @Input() speedSumGroup: any;
   @Input() exptSumGroup: any;
+
   @Input() meanSpeedGroup: any;
   @Input() average: any;
   @Input() expCount: any;
@@ -32,14 +38,6 @@ export class NdxService {
     console.log('ndxService: constructor() - ndxService');
     this.initNdxService();
   }
-
-  /*
-  rnd(a) {
-    return a[Math.floor(Math.random() * a.length)];
-  }
-  */
-
-//  _randVal = Math.floor(Math.random() * (100000)) + 1;
 
   getData(): IData[] {
     console.log('ndxService: getData() - started');
@@ -55,11 +53,12 @@ export class NdxService {
 
     this.runSpeedDimension = this.ndx.dimension((d: IData) => { return [+d.run, +d.speed];});
     this.runDimension = this.ndx.dimension((d: IData) => { return +d.run});
-    this.exptDimension = this.ndx.dimension((d: IData) => { return +d.expt});
+    this.exptDimension = this.ndx.dimension(d => 'exp-' + d.expt);
+    this.expt2Dimension = this.ndx.dimension((d: IData) => { return +d.expt});
     this.speedGroup = this.runSpeedDimension.group().reduceSum( d => (d.speed * d.run / 1000) * Math.floor(Math.random() * (1000)) + 1);
     this.speedSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.run / 1000);
     this.exptSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.expt / 1000);
-    this.exptDimension = this.ndx.dimension(d => 'exp-' + d.expt);
+
     this.speedArrayGroup  = this.exptDimension.group().reduce(
         (p: any, v: any) => {
               p.push(v.speed);
@@ -72,8 +71,24 @@ export class NdxService {
         () => []
     );
 
+     this.exptGroup = this.expt2Dimension.group().reduce(
+         (p: any, v: any) => {
+              ++p.expt;
+              p.total += +v.speed;
+              p.avg = Math.round(p.total / p.expt);
+              return p;
+          },
+         (p: any, v: any) => {
+              --p.expt;
+              p.total -= +v.speed;
+              p.avg = (p.expt === 0) ? 0 : Math.round(p.total / p.expt);
+              return p;
+          },
+         () => ({expt: 0, total: 0, avg: 0}));
 
-    this.meanSpeedGroup = this.ndx.groupAll().reduce(
+
+
+      this.meanSpeedGroup = this.ndx.groupAll().reduce(
         (p: IData, v: IData) => {
           ++p.n;
           p.tot += v.speed;
@@ -96,6 +111,7 @@ export class NdxService {
     console.log(this.exptSumGroup.all());
     console.log(this.speedSumGroup.all());
     console.log(this.speedGroup.all());
+    console.log(this.exptGroup.all());
   }
 
  initNdxService() {

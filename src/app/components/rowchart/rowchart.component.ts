@@ -5,16 +5,16 @@ import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
 
 @Component({
-  selector: 'app-scatterplot',
-  templateUrl: './scatterplot.component.html',
-  styleUrls: ['./scatterplot.component.css'],
+  selector: 'app-rowchart',
+  templateUrl: './rowchart.component.html',
+  styleUrls: ['./rowchart.component.css'],
   providers: []
 })
-export class ScatterPlotComponent implements OnInit, AfterViewInit {
+export class RowChartComponent implements OnInit, AfterViewInit {
 
-  public title = 'chart works!';
-  public chart: dc.ScatterPlot;
+  public title = 'dc.js sub-chart works!';
   public isLoaded = false;
+  public chart: dc.RowChart;
 
   @ViewChild('chartContainer', {static: false}) chartContainer: ElementRef;
   @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
@@ -28,21 +28,17 @@ export class ScatterPlotComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.isLoaded = this.ndxService.isLoaded;
     if (this.isLoaded) {
-      this.chart = dc.scatterPlot(this.chartDiv.nativeElement);
+      // see the following for adding target lines
+      // https://github.com/dc-js/dc.js/blob/master/web/examples/row-targets.html
+      this.chart = dc.rowChart(this.chartDiv.nativeElement);
       this.chart
-          .width(400).height(220)
           .dimension(this.ndxService.runDimension)
-          .group(this.ndxService.speedGroup)
-          .margins({top: 10, right: 20, bottom: 30, left: 40})
-          .xAxisLabel('National Avg')
-          .yAxisLabel('Index Score')
-          .x(d3.scaleLinear().domain([0, 20]))
-          //.y(d3.scaleLinear().domain([500, 200]))
-          // .mouseZoomable(true)
-          .renderHorizontalGridLines(true)
-          .renderVerticalGridLines(true)
-          .symbolSize(8)
-          .brushOn(true)
+          .group(this.ndxService.speedSumGroup)
+          .margins({top: 20, right: 20, bottom: 20, left: 20})
+          .width(380)
+          .height(300)
+          .elasticX(true)
+          .x(d3.scaleLinear().domain([6, 20]))
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
               console.log('click!', d);
@@ -56,12 +52,7 @@ export class ScatterPlotComponent implements OnInit, AfterViewInit {
             chart.transitionDuration(750);
             chart.render();
           });
-/*
-      const xAxisChart = this.chart.xAxis();
-      xAxisChart.ticks(6).tickFormat(d3.format('d'));
-      const yAxisChart = this.chart.yAxis();
-      yAxisChart.ticks(6).tickFormat(d3.format('d'));
-*/
+
       this.chart.render();
     }
   }
