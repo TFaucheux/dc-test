@@ -7,6 +7,7 @@ import { BarChartComponent } from './components/barchart/barchart.component';
 import { RowChartComponent } from './components/rowchart/rowchart.component';
 import { AreaChartComponent } from './components/areachart/areachart.component';
 import { LineChartComponent } from './components/linechart/linechart.component';
+import { SeriesChartComponent } from './components/serieschart/serieschart.component';
 import { PieChartComponent } from './components/piechart/piechart.component';
 import { ScatterPlotComponent } from './components/scatterplot/scatterplot.component';
 import { BoxPlotComponent } from './components/boxplot/boxplot.component';
@@ -28,6 +29,7 @@ export function ndxProviderFactory(provider: NdxProvider) {
     RowChartComponent,
     AreaChartComponent,
     LineChartComponent,
+    SeriesChartComponent,
     PieChartComponent,
     ScatterPlotComponent,
     BoxPlotComponent,

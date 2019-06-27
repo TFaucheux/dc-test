@@ -16,10 +16,12 @@ export class NdxService {
   public isLoaded = false;
 
   @Input() runDimension: Dimension<IData, NaturallyOrderedValue>;
+  @Input() exptRunDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() runSpeedDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() expt2Dimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() exptDimension: Dimension<IData, NaturallyOrderedValue>;
 
+  @Input() runGroup: any;
   @Input() exptGroup: any;
   @Input() speedGroup: any;
 
@@ -51,13 +53,15 @@ export class NdxService {
     this.ndx = crossfilter(this.data);
     console.log(this.ndx);
 
-    this.runSpeedDimension = this.ndx.dimension((d: IData) => { return [+d.run, +d.speed];});
-    this.runDimension = this.ndx.dimension((d: IData) => { return +d.run});
+    this.exptRunDimension = this.ndx.dimension((d: IData) => [+d.expt, +d.run]);
+    this.runSpeedDimension = this.ndx.dimension((d: IData) => [+d.run, +d.speed]);
+    this.runDimension = this.ndx.dimension((d: IData) => { return +d.run;});
     this.exptDimension = this.ndx.dimension(d => 'exp-' + d.expt);
-    this.expt2Dimension = this.ndx.dimension((d: IData) => { return +d.expt});
+    this.expt2Dimension = this.ndx.dimension((d: IData) => { return +d.expt;});
     this.speedGroup = this.runSpeedDimension.group().reduceSum( d => (d.speed * d.run / 1000) * Math.floor(Math.random() * (1000)) + 1);
     this.speedSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.run / 1000);
     this.exptSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.expt / 1000);
+    this.runGroup = this.exptRunDimension.group().reduceSum(d => +d.speed);
 
     this.speedArrayGroup  = this.exptDimension.group().reduce(
         (p: any, v: any) => {
@@ -112,6 +116,7 @@ export class NdxService {
     console.log(this.speedSumGroup.all());
     console.log(this.speedGroup.all());
     console.log(this.exptGroup.all());
+    console.log(this.runGroup.all());
   }
 
  initNdxService() {
