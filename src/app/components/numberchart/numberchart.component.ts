@@ -19,7 +19,7 @@ export class NumberChartComponent implements OnInit, AfterViewInit {
   @ViewChild('chartContainer', {static: false}) chartContainer: ElementRef;
   @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
 
-  constructor(private ndxService: NdxService) {
+  constructor(public ndxService: NdxService) {
   }
 
   ngOnInit() {
@@ -27,6 +27,7 @@ export class NumberChartComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.isLoaded = this.ndxService.isLoaded;
+    console.log(this.isLoaded, this.ndxService.isLoaded);
     if (this.isLoaded) {
       this.chart = dc.numberDisplay(this.chartDiv.nativeElement);
       this.chart

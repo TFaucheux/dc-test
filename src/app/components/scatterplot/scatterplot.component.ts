@@ -19,7 +19,7 @@ export class ScatterPlotComponent implements OnInit, AfterViewInit {
   @ViewChild('chartContainer', {static: false}) chartContainer: ElementRef;
   @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
 
-  constructor(private ndxService: NdxService) {
+  constructor(public ndxService: NdxService) {
   }
 
   ngOnInit() {

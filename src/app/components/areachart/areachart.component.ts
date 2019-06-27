@@ -1,20 +1,20 @@
 import {Component, ViewChild, ElementRef, AfterViewInit, OnInit} from '@angular/core';
 
-// import * as d3 from 'd3';
+import * as d3 from 'd3';
 import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
 
 @Component({
-  selector: 'app-piechart',
-  templateUrl: './piechart.component.html',
-  styleUrls: ['./piechart.component.css'],
+  selector: 'app-areachart',
+  templateUrl: './areachart.component.html',
+  styleUrls: ['./areachart.component.css'],
   providers: []
 })
-export class PieChartComponent implements OnInit, AfterViewInit {
+export class AreaChartComponent implements OnInit, AfterViewInit {
 
-  public title = 'chart works!';
-  public chart: dc.PieChart;
+  public title = 'dc.js sub-chart works!';
   public isLoaded = false;
+  public chart: dc.LineChart;
 
   @ViewChild('chartContainer', {static: false}) chartContainer: ElementRef;
   @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
@@ -28,12 +28,18 @@ export class PieChartComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.isLoaded = this.ndxService.isLoaded;
     if (this.isLoaded) {
-      this.chart = dc.pieChart(this.chartDiv.nativeElement);
+      this.chart = dc.lineChart(this.chartDiv.nativeElement);
       this.chart
-          .width(400).height(220)
           .dimension(this.ndxService.runDimension)
           .group(this.ndxService.speedSumGroup)
-          .innerRadius(50)
+          .margins({top: 20, right: 20, bottom: 20, left: 20})
+          .width(380)
+          .height(480)
+          .x(d3.scaleLinear().domain([6, 20]))
+          .brushOn(false)
+          .renderArea(true)
+          .renderDataPoints(true)
+          .yAxisLabel('This is the Y Axis!')
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
               console.log('click!', d);
@@ -45,11 +51,20 @@ export class PieChartComponent implements OnInit, AfterViewInit {
 
             chart.width(newWidth).transitionDuration(0);
             chart.transitionDuration(750);
-            chart.render();
           });
-      this.chart.render();
+
+           for(var i = 2; i<6; ++i)
+              this.chart.stack(this.ndxService.speedSumGroup, ''+i, this.sel_stack(i));
+        this.chart.render();
+
     }
   }
+
+  sel_stack(i) {
+   return function n(d) {
+             return d.value[i];
+           };
+ }
 
   onResize() {
     this.chart.redraw();
