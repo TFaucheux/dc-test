@@ -30,7 +30,7 @@ export class PieChartComponent implements OnInit, AfterViewInit {
     if (this.isLoaded) {
       this.chart = dc.pieChart(this.chartDiv.nativeElement);
       this.chart
-          .width(400).height(220)
+          .width(400).height(200)
           .dimension(this.ndxService.runDimension)
           .group(this.ndxService.speedSumGroup)
           .innerRadius(50)

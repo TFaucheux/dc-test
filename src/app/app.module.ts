@@ -5,6 +5,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BarChartComponent } from './components/barchart/barchart.component';
 import { AreaChartComponent } from './components/areachart/areachart.component';
+import { LineChartComponent } from './components/linechart/linechart.component';
 import { PieChartComponent } from './components/piechart/piechart.component';
 import { ScatterPlotComponent } from './components/scatterplot/scatterplot.component';
 import { NumberChartComponent } from './components/numberchart/numberchart.component';
@@ -22,6 +23,7 @@ export function ndxProviderFactory(provider: NdxProvider) {
     AppComponent,
     BarChartComponent,
     AreaChartComponent,
+    LineChartComponent,
     PieChartComponent,
     ScatterPlotComponent,
     NumberChartComponent

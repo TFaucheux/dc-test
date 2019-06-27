@@ -5,12 +5,12 @@ import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
 
 @Component({
-  selector: 'app-areachart',
-  templateUrl: './areachart.component.html',
-  styleUrls: ['./areachart.component.css'],
+  selector: 'app-linechart',
+  templateUrl: './linechart.component.html',
+  styleUrls: ['./linechart.component.css'],
   providers: []
 })
-export class AreaChartComponent implements OnInit, AfterViewInit {
+export class LineChartComponent implements OnInit, AfterViewInit {
 
   public title = 'dc.js sub-chart works!';
   public isLoaded = false;
@@ -37,7 +37,7 @@ export class AreaChartComponent implements OnInit, AfterViewInit {
           .height(280)
           .x(d3.scaleLinear().domain([6, 20]))
           .brushOn(true)
-          .renderArea(true)
+          .renderArea(false)
           .renderDataPoints(true)
           .clipPadding(10)
           .yAxisLabel('This is the Y Axis!')
@@ -55,7 +55,7 @@ export class AreaChartComponent implements OnInit, AfterViewInit {
           });
 
            for(var i = 2; i<6; ++i)
-              this.chart.stack(this.ndxService.speedSumGroup, ''+i, this.sel_stack(i));
+              this.chart.stack(this.ndxService.speedSumGroup, '' + i, this.sel_stack(i));
         this.chart.render();
 
     }

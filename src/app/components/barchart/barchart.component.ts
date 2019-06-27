@@ -34,7 +34,7 @@ export class BarChartComponent implements OnInit, AfterViewInit {
           .group(this.ndxService.exptSumGroup)
           .margins({top: 20, right: 20, bottom: 20, left: 20})
           .width(380)
-          .height(480)
+          .height(280)
           .x(d3.scaleLinear().domain([0, 20]))
           .y(d3.scaleLinear().domain([0, 20]))
           .brushOn(false)
