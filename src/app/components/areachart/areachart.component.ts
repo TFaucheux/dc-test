@@ -32,9 +32,9 @@ export class AreaChartComponent implements OnInit, AfterViewInit {
       this.chart
           .dimension(this.ndxService.runDimension)
           .group(this.ndxService.speedSumGroup)
-          .margins({top: 20, right: 20, bottom: 20, left: 20})
+          .margins({top: 20, right: 30, bottom: 20, left: 30})
           .width(380)
-          .height(280)
+          .height(200)
           .x(d3.scaleLinear().domain([6, 20]))
           .brushOn(true)
           .renderArea(true)

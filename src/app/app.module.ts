@@ -7,7 +7,10 @@ import { BarChartComponent } from './components/barchart/barchart.component';
 import { RowChartComponent } from './components/rowchart/rowchart.component';
 import { AreaChartComponent } from './components/areachart/areachart.component';
 import { LineChartComponent } from './components/linechart/linechart.component';
+import { HeatMapComponent } from './components/heatmap/heatmap.component';
 import { SeriesChartComponent } from './components/serieschart/serieschart.component';
+import { CompositeChartComponent } from './components/compositechart/compositechart.component';
+import { ChloroplethComponent } from './components/chloropleth/chloropleth.component';
 import { PieChartComponent } from './components/piechart/piechart.component';
 import { ScatterPlotComponent } from './components/scatterplot/scatterplot.component';
 import { BoxPlotComponent } from './components/boxplot/boxplot.component';
@@ -16,7 +19,6 @@ import { AggDataComponent } from './components/aggdata/aggdata.component';
 
 import { NdxService } from './services/ndx.service';
 import { NdxProvider } from './ndx-provider';
-import {area} from 'd3-shape';
 
 export function ndxProviderFactory(provider: NdxProvider) {
   return () => provider.load();
@@ -29,12 +31,15 @@ export function ndxProviderFactory(provider: NdxProvider) {
     RowChartComponent,
     AreaChartComponent,
     LineChartComponent,
+    HeatMapComponent,
     SeriesChartComponent,
+    CompositeChartComponent,
     PieChartComponent,
     ScatterPlotComponent,
     BoxPlotComponent,
     NumberChartComponent,
     AggDataComponent,
+    ChloroplethComponent,
   ],
   imports: [
     BrowserModule,

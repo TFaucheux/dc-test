@@ -5,7 +5,7 @@ import {Component, OnInit, AfterViewInit} from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./css/font-awesome.min.css',
-              './reset.css',
+             // './reset.css',
               './app.css',
               './app.component.css']
 })

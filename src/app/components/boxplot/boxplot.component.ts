@@ -30,10 +30,10 @@ export class BoxPlotComponent implements OnInit, AfterViewInit {
     if (this.isLoaded) {
       this.chart = dc.boxPlot(this.chartDiv.nativeElement);
       this.chart
-          .width(400).height(220)
+          .width(380).height(200)
           .dimension(this.ndxService.exptDimension)
           .group(this.ndxService.speedArrayGroup)
-          .margins({top: 10, right: 20, bottom: 30, left: 40})
+          .margins({top: 10, right: 30, bottom: 30, left: 30})
           .elasticY(true)
           .elasticX(true)
           .on('renderlet', chart => {

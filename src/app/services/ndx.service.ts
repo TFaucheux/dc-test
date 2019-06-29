@@ -15,18 +15,22 @@ export class NdxService {
   public data: IData[] = [];
   public isLoaded = false;
 
+  @Input() stateDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() runDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() exptRunDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() runSpeedDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() expt2Dimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() exptDimension: Dimension<IData, NaturallyOrderedValue>;
 
+  @Input() stateValueSumGroup: any;
+  @Input() stateGroup: any;
   @Input() runGroup: any;
   @Input() exptGroup: any;
   @Input() speedGroup: any;
 
   @Input() speedArrayGroup: any;
 
+  @Input() speedExptSumGroup: any; // Group<IData, NaturallyOrderedValue, NaturallyOrderedValue>;
   @Input() speedSumGroup: any;
   @Input() exptSumGroup: any;
 
@@ -53,16 +57,26 @@ export class NdxService {
     this.ndx = crossfilter(this.data);
     console.log(this.ndx);
 
-    this.exptRunDimension = this.ndx.dimension((d: IData) => [+d.expt, +d.run]);
-    this.runSpeedDimension = this.ndx.dimension((d: IData) => [+d.run, +d.speed]);
-    this.runDimension = this.ndx.dimension((d: IData) => { return +d.run;});
-    this.exptDimension = this.ndx.dimension(d => 'exp-' + d.expt);
+    // Dimensions
+
+    this.stateDimension = this.ndx.dimension((d) => {return d.state;});
+    this.stateGroup = this.stateDimension.group();
+
     this.expt2Dimension = this.ndx.dimension((d: IData) => { return +d.expt;});
+    this.runDimension = this.ndx.dimension((d: IData) => { return +d.run;});
+    this.runSpeedDimension = this.ndx.dimension((d: IData) => [+d.run, +d.speed]);
+    this.exptRunDimension = this.ndx.dimension((d: IData) => [+d.expt, +d.run]);
+    this.exptDimension = this.ndx.dimension(d => 'exp-' + d.expt);
+
+    // Groups
+    this.stateValueSumGroup = this.stateDimension.group().reduceSum((d) => {return d.value;});
+
     this.speedGroup = this.runSpeedDimension.group().reduceSum( d => (d.speed * d.run / 1000) * Math.floor(Math.random() * (1000)) + 1);
     this.speedSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.run / 1000);
     this.exptSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.expt / 1000);
     this.runGroup = this.exptRunDimension.group().reduceSum(d => +d.speed);
 
+    // Custom Groups
     this.speedArrayGroup  = this.exptDimension.group().reduce(
         (p: any, v: any) => {
               p.push(v.speed);
@@ -74,6 +88,14 @@ export class NdxService {
             },
         () => []
     );
+
+      this.speedExptSumGroup = this.runDimension.group().reduce((p, v) => {
+          p[v.expt] = (p[v.expt] || 0) + v.speed;
+          return p;
+      }, (p, v) => {
+          p[v.expt] = (p[v.expt] || 0) - v.speed;
+          return p;
+      }, () => ({}));
 
      this.exptGroup = this.expt2Dimension.group().reduce(
          (p: any, v: any) => {
@@ -91,7 +113,6 @@ export class NdxService {
          () => ({expt: 0, total: 0, avg: 0}));
 
 
-
       this.meanSpeedGroup = this.ndx.groupAll().reduce(
         (p: IData, v: IData) => {
           ++p.n;
@@ -106,19 +127,24 @@ export class NdxService {
         () => ({n: 0, tot: 0})
     );
 
+    // Summary Stat Functions
     this.average = d => d.n ? d.tot / d.n : 0;
     this.expCount = d => d.n;
 
+    // isLoaded should be True after data is completed loading
     this.isLoaded = true;
 
-    console.log('ndxService: completeData() - this.speedSumGroup.all():');
-    console.log(this.exptSumGroup.all());
-    console.log(this.speedSumGroup.all());
-    console.log(this.speedGroup.all());
-    console.log(this.exptGroup.all());
-    console.log(this.runGroup.all());
+    // Log out Group data for diagnostics if needed
+    // console.log('ndxService: completeData() - this.speedSumGroup.all():');
+    // console.log(this.speedSumGroup.all());
+    // console.log(this.speedGroup.all());
+    // console.log(this.exptGroup.all());
+    // console.log(this.exptSumGroup.all());
+    // console.log(this.runGroup.all());
+    console.log(this.speedExptSumGroup.all());
   }
 
+ // Initialize routine to call from Service Constructor()
  initNdxService() {
     console.log('ndxService: initNdxService() - started');
     this.getData();

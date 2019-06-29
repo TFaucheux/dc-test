@@ -30,10 +30,10 @@ export class ScatterPlotComponent implements OnInit, AfterViewInit {
     if (this.isLoaded) {
       this.chart = dc.scatterPlot(this.chartDiv.nativeElement);
       this.chart
-          .width(400).height(220)
+          .width(380).height(200)
           .dimension(this.ndxService.runDimension)
           .group(this.ndxService.speedGroup)
-          .margins({top: 10, right: 20, bottom: 30, left: 40})
+          .margins({top: 10, right: 30, bottom: 30, left: 30})
           .xAxisLabel('National Avg')
           .yAxisLabel('Index Score')
           .x(d3.scaleLinear().domain([0, 20]))

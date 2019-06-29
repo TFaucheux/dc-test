@@ -34,11 +34,12 @@ export class RowChartComponent implements OnInit, AfterViewInit {
       this.chart
           .dimension(this.ndxService.runDimension)
           .group(this.ndxService.speedSumGroup)
-          .margins({top: 20, right: 20, bottom: 20, left: 20})
+          .margins({top: 10, right: 30, bottom: 30, left: 30})
           .width(380)
-          .height(300)
+          .height(280)
           .x(d3.scaleLinear().domain([6, 20]))
           .elasticX(true)
+          .renderTitleLabel(false)
           // .on('renderlet', chart => {
           //   chart.selectAll('rect').on('click', d => {
           //     console.log('click!', d);
@@ -48,6 +49,7 @@ export class RowChartComponent implements OnInit, AfterViewInit {
             const width: number = this.chartDiv.nativeElement.offsetWidth;
             const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
 
+            //chart.fixedBarHeight( chartheight - (count + 1) * gap / count);
             chart.width(newWidth).transitionDuration(0);
             chart.transitionDuration(750);
             chart.render();
