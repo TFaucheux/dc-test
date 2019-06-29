@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef, AfterViewInit, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 import * as d3 from 'd3';
 import * as dc from 'dc';
@@ -29,33 +29,33 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
     this.isLoaded = this.ndxService.isLoaded;
     if (this.isLoaded) {
 
-      this.chart = dc.geoChoroplethChart('#choropleth-chart')
-            .width(990)
-            .height(600);
+      this.chart = dc.geoChoroplethChart(this.chartDiv.nativeElement)
+            .width(900)
+            .height(500);
+            // .on('preRedraw', chart => {
+            //   const width: number = this.chartDiv.nativeElement.offsetWidth;
+            //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
+            //   chart.width(newWidth).transitionDuration(0);
+            //   chart.transitionDuration(750);
+            //  });
 
 
-        d3.json('geo/us-states.json').then(states => {
-            d3.json('geo/us-counties.json').then((counties) => {
-                this.chart
-                    .dimension(this.ndxService.stateDimension)
-                    .group(this.ndxService.stateValueSumGroup)
-                    .colors(['#ccc', '#E2F2FF', '#C4E4FF', '#9ED2FF', '#81C5FF', '#6BBAFF', '#51AEFF', '#36A2FF', '#1E96FF', '#0089FF'])
-                    .colorDomain([0, 155])
-//                    .overlayGeoJson(states.features, 'state', d => d.properties.name)
-//                    .overlayGeoJson(counties.features, 'county')
-                    .title(d => d.key + ' : ' + (d.value ? d.value : 0));
-
-                dc.renderAll();
-            });
-        });
-          // .on('preRedraw', chart => {
-          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
-          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-          //
-          //   chart.width(newWidth).transitionDuration(0);
-          //   chart.transitionDuration(750);
+      d3.json('assets/data/geo/us-states.json').then((states: any) => {
+          // d3.json('assets/data/geo/us-counties.json').then((counties) => {
+          // const {features} = states;
+          // const features = states;
+          this.chart
+              .dimension(this.ndxService.stateDimension)
+              .group(this.ndxService.stateValueSumGroup)
+              .colors(['#ccc', '#E2F2FF', '#C4E4FF', '#9ED2FF', '#81C5FF', '#6BBAFF', '#51AEFF', '#36A2FF', '#1E96FF', '#0089FF'])
+              .colorDomain([0, 10000])
+              .overlayGeoJson(states.features, 'state', d => d.properties.name)
+              // .overlayGeoJson(counties.features, 'county')
+              // .title(d => d.key + ' : ' + (d.value ? d.value : 0))
+              ;
+          this.chart.render();
           // });
-
+      });
     }
   }
 

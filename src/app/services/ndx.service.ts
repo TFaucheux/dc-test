@@ -69,7 +69,7 @@ export class NdxService {
     this.exptDimension = this.ndx.dimension(d => 'exp-' + d.expt);
 
     // Groups
-    this.stateValueSumGroup = this.stateDimension.group().reduceSum((d) => {return d.value;});
+    this.stateValueSumGroup = this.stateDimension.group().reduceSum((d) => {return d.speed;});
 
     this.speedGroup = this.runSpeedDimension.group().reduceSum( d => (d.speed * d.run / 1000) * Math.floor(Math.random() * (1000)) + 1);
     this.speedSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.run / 1000);
