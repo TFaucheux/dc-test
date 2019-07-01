@@ -5,4 +5,5 @@ export interface IData {
   tot: number;
   n: number;
   state: string;
+  region: string;
 }

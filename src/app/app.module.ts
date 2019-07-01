@@ -19,6 +19,7 @@ import { AggDataComponent } from './components/aggdata/aggdata.component';
 
 import { NdxService } from './services/ndx.service';
 import { NdxProvider } from './ndx-provider';
+import {AppStateService} from './services/AppStateService';
 
 export function ndxProviderFactory(provider: NdxProvider) {
   return () => provider.load();
@@ -46,6 +47,7 @@ export function ndxProviderFactory(provider: NdxProvider) {
     HttpClientModule
   ],
   providers: [
+      AppStateService,
       NdxService,
       NdxProvider,
       { provide: APP_INITIALIZER, useFactory: ndxProviderFactory, deps: [NdxProvider], multi: true }],

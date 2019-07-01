@@ -15,6 +15,7 @@ export class NdxService {
   public data: IData[] = [];
   public isLoaded = false;
 
+  @Input() regionDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() stateDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() runDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() exptRunDimension: Dimension<IData, NaturallyOrderedValue>;
@@ -22,6 +23,8 @@ export class NdxService {
   @Input() expt2Dimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() exptDimension: Dimension<IData, NaturallyOrderedValue>;
 
+  @Input() regionValueSumGroup: any;
+  @Input() regionGroup: any;
   @Input() stateValueSumGroup: any;
   @Input() stateGroup: any;
   @Input() runGroup: any;
@@ -61,6 +64,9 @@ export class NdxService {
 
     this.stateDimension = this.ndx.dimension((d) => {return d.state;});
     this.stateGroup = this.stateDimension.group();
+    this.regionDimension = this.ndx.dimension((d) => {return d.region;});
+    this.regionGroup = this.stateDimension.group();
+
 
     this.expt2Dimension = this.ndx.dimension((d: IData) => { return +d.expt;});
     this.runDimension = this.ndx.dimension((d: IData) => { return +d.run;});
@@ -69,7 +75,8 @@ export class NdxService {
     this.exptDimension = this.ndx.dimension(d => 'exp-' + d.expt);
 
     // Groups
-    this.stateValueSumGroup = this.stateDimension.group().reduceSum((d) => {return d.speed;});
+    this.stateValueSumGroup = this.stateDimension.group().reduceSum((d) => d.speed);
+    this.regionValueSumGroup = this.regionDimension.group().reduceSum((d) => d.speed);
 
     this.speedGroup = this.runSpeedDimension.group().reduceSum( d => (d.speed * d.run / 1000) * Math.floor(Math.random() * (1000)) + 1);
     this.speedSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.run / 1000);
@@ -141,7 +148,8 @@ export class NdxService {
     // console.log(this.exptGroup.all());
     // console.log(this.exptSumGroup.all());
     // console.log(this.runGroup.all());
-    console.log(this.speedExptSumGroup.all());
+    // console.log(this.speedExptSumGroup.all());
+      console.log(this.regionValueSumGroup.all());
   }
 
  // Initialize routine to call from Service Constructor()

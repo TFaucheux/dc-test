@@ -1,8 +1,9 @@
-import {Component, ViewChild, ElementRef, AfterViewInit, OnInit} from '@angular/core';
+import {Component, ViewChild, ElementRef, AfterViewInit, OnInit, OnChanges} from '@angular/core';
 
-// import * as d3 from 'd3';
 import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
+import {AppComponent} from '../../app.component';
+import {AppStateService} from '../../services/AppStateService';
 
 @Component({
   selector: 'app-piechart',
@@ -12,6 +13,7 @@ import {NdxService} from '../../services/ndx.service';
 })
 export class PieChartComponent implements OnInit, AfterViewInit {
 
+  public message: string;
   public title = 'chart works!';
   public chart: dc.PieChart;
   public isLoaded = false;
@@ -19,11 +21,22 @@ export class PieChartComponent implements OnInit, AfterViewInit {
   @ViewChild('chartContainer', {static: false}) chartContainer: ElementRef;
   @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
 
-  constructor(public ndxService: NdxService) {
+  constructor(public ndxService: NdxService,
+              private data: AppStateService) {
   }
 
   ngOnInit() {
+    // console.log('pieChart.ngOnInit() - ' + JSON.stringify(this.data))
+    this.data.messageObservable.subscribe(message => this.message = message);
   }
+
+  ngOnChanges() {
+    // const colors: any = this.app.defaultColors;
+    // console.log('pie: ' + colors);
+    // this.chart.colors(colors);
+    // this.chart.render();
+  }
+
 
   ngAfterViewInit() {
     this.isLoaded = this.ndxService.isLoaded;
@@ -32,7 +45,7 @@ export class PieChartComponent implements OnInit, AfterViewInit {
       this.chart
           .width(400).height(200)
           .dimension(this.ndxService.runDimension)
-          .group(this.ndxService.speedSumGroup)
+          .group(this.ndxService.exptSumGroup)
           .innerRadius(50)
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
@@ -45,7 +58,7 @@ export class PieChartComponent implements OnInit, AfterViewInit {
 
             chart.width(newWidth).transitionDuration(0);
             chart.transitionDuration(750);
-            chart.render();
+            // chart.render();
           });
       this.chart.render();
     }

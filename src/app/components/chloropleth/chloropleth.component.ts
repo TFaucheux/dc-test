@@ -1,8 +1,10 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AppComponent} from '../../app.component';
 
 import * as d3 from 'd3';
 import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
+import {AppStateService} from '../../services/AppStateService';
 
 @Component({
   selector: 'app-chloropleth',
@@ -12,6 +14,7 @@ import {NdxService} from '../../services/ndx.service';
 })
 export class ChloroplethComponent implements OnInit, AfterViewInit {
 
+  public message: string;
   public title = 'dc.js sub-chart works!';
   public isLoaded = false;
   public chart: dc.GeoChoroplethChart;
@@ -19,10 +22,12 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
   @ViewChild('chartContainer', {static: false}) chartContainer: ElementRef;
   @ViewChild('chartDiv', {static: false}) chartDiv: ElementRef;
 
-  constructor(public ndxService: NdxService) {
+  constructor(public data: AppStateService, public ndxService: NdxService) {
   }
 
   ngOnInit() {
+    // console.log('chlorpleth.ngOnInit() - ' + JSON.stringify(this.data))
+    this.data.messageObservable.subscribe(message => this.message = message);
   }
 
   ngAfterViewInit() {
@@ -31,30 +36,22 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
 
       this.chart = dc.geoChoroplethChart(this.chartDiv.nativeElement)
             .width(900)
-            .height(500);
-            // .on('preRedraw', chart => {
-            //   const width: number = this.chartDiv.nativeElement.offsetWidth;
-            //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-            //   chart.width(newWidth).transitionDuration(0);
-            //   chart.transitionDuration(750);
-            //  });
-
+            .height(500)
+            .useViewBoxResizing(true);
 
       d3.json('assets/data/geo/us-states.json').then((states: any) => {
-          // d3.json('assets/data/geo/us-counties.json').then((counties) => {
-          // const {features} = states;
-          // const features = states;
+          // const colors:any = this.app.defaultColors;
+          // console.log('defaultTheme = ' + this.app.defaultTheme);
+
           this.chart
-              .dimension(this.ndxService.stateDimension)
-              .group(this.ndxService.stateValueSumGroup)
-              .colors(['#ccc', '#E2F2FF', '#C4E4FF', '#9ED2FF', '#81C5FF', '#6BBAFF', '#51AEFF', '#36A2FF', '#1E96FF', '#0089FF'])
-              .colorDomain([0, 10000])
-              .overlayGeoJson(states.features, 'state', d => d.properties.name)
-              // .overlayGeoJson(counties.features, 'county')
-              // .title(d => d.key + ' : ' + (d.value ? d.value : 0))
-              ;
+              .dimension(this.ndxService.regionDimension)
+              .group(this.ndxService.regionValueSumGroup)
+              // .colors(colors)
+              // .colors(dc.config.defaultColors)
+              // .colors(['#ccc', '#E2F2FF', '#C4E4FF', '#9ED2FF', '#81C5FF', '#6BBAFF', '#51AEFF', '#36A2FF', '#1E96FF', '#0089FF'])
+              .colorDomain([0, 20000])
+              .overlayGeoJson(states.features, 'region', d => d.properties.region);
           this.chart.render();
-          // });
       });
     }
   }
