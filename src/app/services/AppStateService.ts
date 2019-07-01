@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 export class AppStateService {
 
     private _message: string = 'blank';
-    private _messageSubject: BehaviorSubject<string> = new BehaviorSubject('default message');
+    private _messageSubject: BehaviorSubject<string> = new BehaviorSubject('default BehaviorSubject message');
     public  messageObservable: Observable<string> = this._messageSubject.asObservable();
 
     constructor() {}
@@ -15,9 +15,9 @@ export class AppStateService {
     }
 
     setMessage(message: string) {
-         console.log('setMessage()' + message);
-         console.log(this._message);
-         console.log(this._messageSubject);
+         // console.log('setMessage()' + message);
+         // console.log(this._message);
+         // console.log(this._messageSubject);
          this._messageSubject.next(message);
     }
 
