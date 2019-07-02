@@ -2,7 +2,6 @@ import {Component, ViewChild, ElementRef, AfterViewInit, OnInit, OnChanges} from
 
 import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
-import {AppComponent} from '../../app.component';
 import {AppStateService} from '../../services/AppStateService';
 
 @Component({
@@ -13,7 +12,8 @@ import {AppStateService} from '../../services/AppStateService';
 })
 export class PieChartComponent implements OnInit, AfterViewInit {
 
-  public message: string;
+  public defaultTheme: string;
+  public defaultColors: any;
   public title = 'chart works!';
   public chart: dc.PieChart;
   public isLoaded = false;
@@ -26,8 +26,8 @@ export class PieChartComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // console.log('pieChart.ngOnInit() - ' + JSON.stringify(this.data))
-    this.data.messageObservable.subscribe(message => this.message = message);
+    this.data.themeObservable.subscribe(theme => this.defaultTheme = theme);
+
   }
 
   ngOnChanges() {
@@ -58,7 +58,7 @@ export class PieChartComponent implements OnInit, AfterViewInit {
 
             chart.width(newWidth).transitionDuration(0);
             chart.transitionDuration(750);
-            // chart.render();
+            chart.render();
           });
       this.chart.render();
     }

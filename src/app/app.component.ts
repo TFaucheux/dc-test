@@ -17,7 +17,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(private data: AppStateService) {
   }
 
-  public message: string;
   defaultTheme: string;
   defaultColors: ScaleOrdinal<string, string>;
   // defaultColors: Array<string>;
@@ -31,7 +30,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const select = d3.select('#themePicker')
         .append('select')
         .attr('class', 'select')
-        .on('change', this.onChange);
+        .on('change', (data) => this.onChange());
 
     const options = select
         .selectAll('option')
@@ -47,14 +46,23 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     // console.log('AppComponent.ngOnInit() - ' + JSON.stringify(this.data))
-    this.data.messageObservable.subscribe(message => this.message = message);
+    this.data.themeObservable.subscribe(theme => this.defaultTheme = theme);
+  }
+
+  setTheme(theme: string): void {
+    if (this.data != null) {
+      this.data.setTheme(theme);
+      console.log(this.data.getTheme());
+    }
+    else
+      console.log('### this.data:', this.data);
   }
 
   onChange() {
     const selectValue = d3.select('select').property('value');
     d3.select('#themePicker');
     this.defaultTheme = selectValue;
-    switch (this.defaultTheme) {
+    switch (selectValue) {
       case 'Blues':
         this.defaultColors = d3.scaleOrdinal(d3.schemeBlues[9]);
         break;
@@ -130,9 +138,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       default:
         this.defaultColors = d3.scaleOrdinal(d3.schemeBlues[9]);
     }
-    this.message = this.defaultTheme;
-    this.data.setMessage(this.message);
-    console.log(this.data.getMessage());
+    this.setTheme(this.defaultTheme);
+    console.log(this.data.getTheme());
     dc.redrawAll();
   }
 }

@@ -1,24 +1,26 @@
 import { Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable()
 export class AppStateService {
 
-    private _message: string = 'blank';
-    private _messageSubject: BehaviorSubject<string> = new BehaviorSubject('default BehaviorSubject message');
-    public  messageObservable: Observable<string> = this._messageSubject.asObservable();
+    private _theme: string;
+    private _themeSubject: BehaviorSubject<string> = new BehaviorSubject('Blues');
+    public  themeObservable: Observable<string> = this._themeSubject.asObservable();
+
+    private _defaultColors: any;
+    private _defaultColorsSubject: BehaviorSubject<string> = new BehaviorSubject('default');
+    public  defaultColorsObservable: Observable<string> = this._defaultColorsSubject.asObservable();
+
 
     constructor() {}
 
-    getMessage(): string {
-         return this._message;
+    getTheme(): string {
+         return this._theme;
     }
 
-    setMessage(message: string) {
-         // console.log('setMessage()' + message);
-         // console.log(this._message);
-         // console.log(this._messageSubject);
-         this._messageSubject.next(message);
+    setTheme(theme: string) {
+         this._themeSubject.next(theme);
     }
 
 }

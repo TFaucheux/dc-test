@@ -14,7 +14,8 @@ import {AppStateService} from '../../services/AppStateService';
 })
 export class ChloroplethComponent implements OnInit, AfterViewInit {
 
-  public message: string;
+  public defaultTheme: string;
+  public defaultColors: any;
   public title = 'dc.js sub-chart works!';
   public isLoaded = false;
   public chart: dc.GeoChoroplethChart;
@@ -26,8 +27,7 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // console.log('chlorpleth.ngOnInit() - ' + JSON.stringify(this.data))
-    this.data.messageObservable.subscribe(message => this.message = message);
+    this.data.themeObservable.subscribe(theme => this.defaultTheme = theme);
   }
 
   ngAfterViewInit() {
@@ -40,14 +40,13 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
             .useViewBoxResizing(true);
 
       d3.json('assets/data/geo/us-states.json').then((states: any) => {
-          // const colors:any = this.app.defaultColors;
-          // console.log('defaultTheme = ' + this.app.defaultTheme);
+          //const colors:any = this.data.getDefaultColors();
+          console.log('defaultTheme = ' + this.defaultTheme);
 
           this.chart
               .dimension(this.ndxService.regionDimension)
               .group(this.ndxService.regionValueSumGroup)
-              // .colors(colors)
-              // .colors(dc.config.defaultColors)
+              // .colors(this.defaultColors)
               // .colors(['#ccc', '#E2F2FF', '#C4E4FF', '#9ED2FF', '#81C5FF', '#6BBAFF', '#51AEFF', '#36A2FF', '#1E96FF', '#0089FF'])
               .colorDomain([0, 20000])
               .overlayGeoJson(states.features, 'region', d => d.properties.region);

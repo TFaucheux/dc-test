@@ -1,4 +1,5 @@
 <div #chartContainer *ngIf="ndxService.isLoaded">
    <div #chartDiv (window:resize)="onResize()"></div>
+   <a class="reset" href="javascript:this.chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 </div>
 
