@@ -3,6 +3,7 @@ import {Component, ViewChild, ElementRef, AfterViewInit, OnInit, OnChanges} from
 import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
 import {AppStateService} from '../../services/AppStateService';
+import {ScaleOrdinal} from 'd3-scale';
 
 @Component({
   selector: 'app-piechart',
@@ -27,7 +28,7 @@ export class PieChartComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.data.themeObservable.subscribe(theme => this.defaultTheme = theme);
-
+    this.data.defaultColorsObservable.subscribe(defaultColors => this.defaultColors = defaultColors);
   }
 
   ngOnChanges() {
