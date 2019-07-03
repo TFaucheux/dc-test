@@ -1,34 +1,34 @@
 import { Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {ScaleOrdinal} from 'd3-scale';
 
 @Injectable()
 export class AppStateService {
 
-    private _theme: string;
-    private _themeSubject: BehaviorSubject<string> = new BehaviorSubject('Blues');
-    public  themeObservable: Observable<string> = this._themeSubject.asObservable();
+    public  theme: string;
+    private themeSubject: BehaviorSubject<string> = new BehaviorSubject('Blues');
+    public  themeObservable: Observable<string> = this.themeSubject.asObservable();
 
-    private _defaultColors: any = [];
-    private _defaultColorsSubject: BehaviorSubject<any> = new BehaviorSubject([]);
-    public  defaultColorsObservable: Observable<any> = this._defaultColorsSubject.asObservable();
+    public  defaultColors: string = '';
+    private defaultColorsSubject: BehaviorSubject<string> = new BehaviorSubject('');
+    public  defaultColorsObservable: Observable<string> = this.defaultColorsSubject.asObservable();
 
     constructor() {}
 
-    getTheme(): string {
-         return this._theme;
+    getTheme(): Observable<string> {
+         return of(this.theme);
     }
 
     setTheme(theme: string) {
-         this._themeSubject.next(theme);
+         this.themeSubject.next(theme);
     }
 
     getDefaultColors() {
-        return this._defaultColors;
+        return of(this.defaultColors);
     }
 
-    setDefaultColors(defaultColors: any) {
-        this._defaultColorsSubject.next(defaultColors);
+    setDefaultColors(defaultColors: string) {
+        this.defaultColorsSubject.next(defaultColors);
     }
 
 }

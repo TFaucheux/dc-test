@@ -1,6 +1,7 @@
 import { Injectable, Input} from '@angular/core';
 
 import * as d3 from 'd3';
+import * as dc from 'dc';
 import * as CrossFilter from 'crossfilter2';
 import * as crossfilter from 'crossfilter2';
 import {NaturallyOrderedValue, Dimension, Group, Crossfilter} from 'crossfilter2';
@@ -155,6 +156,7 @@ export class NdxService {
  // Initialize routine to call from Service Constructor()
  initNdxService() {
     console.log('ndxService: initNdxService() - started');
+    dc.config.defaultColors(d3.scaleOrdinal(d3.schemeBlues[9]));
     this.getData();
     this.groupData();
   }

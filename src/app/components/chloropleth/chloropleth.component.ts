@@ -6,7 +6,7 @@ import * as topojson from 'topojson';
 
 import {NdxService} from '../../services/ndx.service';
 import {AppStateService} from '../../services/AppStateService';
-import {ScaleOrdinal} from 'd3';
+import {path} from 'd3';
 
 @Component({
   selector: 'app-chloropleth',
@@ -18,7 +18,7 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
 
   public defaultTheme: string;
   // public defaultColors: ScaleOrdinal<string, string>;
-  public defaultColors: any;
+  public defaultColors: string;
   public title = 'dc.js sub-chart works!';
   public isLoaded = false;
   public chart: dc.GeoChoroplethChart;
@@ -30,8 +30,8 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.data.themeObservable.subscribe(theme => this.defaultTheme = theme);
-    this.data.defaultColorsObservable.subscribe(defaultColors => this.defaultColors = defaultColors);
+    this.data.getTheme().subscribe(theme => this.defaultTheme = theme);
+    this.data.getDefaultColors().subscribe(defaultColors => this.defaultColors = defaultColors);
   }
 
   ngAfterViewInit() {
@@ -44,10 +44,6 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
             .useViewBoxResizing(true);
 
       d3.json('assets/data/geo/us-states.json').then((states: any) => {
-          const colors: any = this.data.getDefaultColors();
-          console.log('defaultTheme = ' + this.defaultTheme);
-          console.log('defaultColors = ' + colors);
-
 /*
          const lookup = {
              53 : 'WA',
@@ -69,19 +65,27 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
            .append('path')
            .attr('d', (region: any) => {
                const feature = topojson.merge(states, states.objects.states.geometries.filter(state => region.contains.indexOf(lookup[state.id]) > -1));
-               return feature;
+               return feature.path();
            });
 */
+         console.log('chloropleth')
+         console.log(dc.config.defaultColors());
          this.chart
               .dimension(this.ndxService.regionDimension)
               .group(this.ndxService.regionValueSumGroup)
-              // .colors(colors)
+              .colors(dc.config.defaultColors())
+              // .colors(this.defaultColors.split(','))
               // .colors(['#ccc', '#E2F2FF', '#C4E4FF', '#9ED2FF', '#81C5FF', '#6BBAFF', '#51AEFF', '#36A2FF', '#1E96FF', '#0089FF'])
+              // .colors(['#f7fcf5','#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b'])
               .colorDomain([0, 20000])
               .overlayGeoJson(states.features, 'region', d => d.properties.region);
-         this.chart.render();
+          this.chart.render();
       });
     }
+  }
+
+  updateChart() {
+    this.chart.colors(dc.config.defaultColors()).redraw();
   }
 
   onResize() {

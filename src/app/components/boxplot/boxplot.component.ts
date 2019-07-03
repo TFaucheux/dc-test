@@ -36,6 +36,7 @@ export class BoxPlotComponent implements OnInit, AfterViewInit {
           .margins({top: 10, right: 30, bottom: 30, left: 30})
           .elasticY(true)
           .elasticX(true)
+          .colors(dc.config.defaultColors())
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
               console.log('click!', d);
@@ -57,6 +58,10 @@ export class BoxPlotComponent implements OnInit, AfterViewInit {
 */
       this.chart.render();
     }
+  }
+
+  updateChart() {
+    this.chart.colors(dc.config.defaultColors()).redraw();
   }
 
   onResize() {

@@ -43,6 +43,7 @@ export class ScatterPlotComponent implements OnInit, AfterViewInit {
           .renderVerticalGridLines(true)
           .symbolSize(8)
           .brushOn(true)
+          .colors(dc.config.defaultColors())
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
               console.log('click!', d);
@@ -64,6 +65,10 @@ export class ScatterPlotComponent implements OnInit, AfterViewInit {
 */
       this.chart.render();
     }
+  }
+
+  updateChart() {
+    this.chart.colors(dc.config.defaultColors()).redraw();
   }
 
   onResize() {

@@ -50,6 +50,7 @@ export class CompositeChartComponent implements OnInit, AfterViewInit {
                 .dashStyle([5,5])
           ])
           .brushOn(false)
+          .colors(dc.config.defaultColors())
           .on('preRedraw', chart => {
             const width: number = this.chartDiv.nativeElement.offsetWidth;
             const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
@@ -62,6 +63,10 @@ export class CompositeChartComponent implements OnInit, AfterViewInit {
         this.chart.render();
 
     }
+  }
+
+  updateChart() {
+    this.chart.colors(dc.config.defaultColors()).redraw();
   }
 
   onResize() {

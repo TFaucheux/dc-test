@@ -40,6 +40,7 @@ export class RowChartComponent implements OnInit, AfterViewInit {
           .x(d3.scaleLinear().domain([6, 20]))
           .elasticX(true)
           .renderTitleLabel(false)
+          .colors(dc.config.defaultColors())
           // .on('renderlet', chart => {
           //   chart.selectAll('rect').on('click', d => {
           //     console.log('click!', d);
@@ -58,6 +59,10 @@ export class RowChartComponent implements OnInit, AfterViewInit {
       this.chart.render();
     }
   }
+
+ updateChart() {
+     this.chart.colors(dc.config.defaultColors()).redraw();
+ }
 
   onResize() {
     this.chart.redraw();

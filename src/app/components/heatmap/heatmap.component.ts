@@ -39,6 +39,7 @@ export class HeatMapComponent implements OnInit, AfterViewInit {
           .height(300)
           .keyAccessor(function(d) { return +d.key[0]; })
           .valueAccessor(function(d) { return +d.key[1]; })
+          .colors(dc.config.defaultColors())
           .colorAccessor(function(d) { return +d.value; })
           .title(function(d) {
               return 'Run:   ' + d.key[0] + '\n' +
@@ -58,12 +59,17 @@ export class HeatMapComponent implements OnInit, AfterViewInit {
             chart.transitionDuration(750);
             chart.render();
           })
-          .colors(['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58'])
-          .calculateColorDomain()
+          .colors(dc.config.defaultColors())
+          // .colors(['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58'])
+          // .calculateColorDomain()
 
       this.chart.render();
     }
   }
+
+ updateChart() {
+    this.chart.colors(dc.config.defaultColors()).redraw();
+ }
 
   onResize() {
     this.chart.redraw();

@@ -14,7 +14,7 @@ import {ScaleOrdinal} from 'd3-scale';
 export class PieChartComponent implements OnInit, AfterViewInit {
 
   public defaultTheme: string;
-  public defaultColors: any;
+  public defaultColors: string;
   public title = 'chart works!';
   public chart: dc.PieChart;
   public isLoaded = false;
@@ -27,8 +27,8 @@ export class PieChartComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.data.themeObservable.subscribe(theme => this.defaultTheme = theme);
-    this.data.defaultColorsObservable.subscribe(defaultColors => this.defaultColors = defaultColors);
+      this.data.getTheme().subscribe(theme => this.defaultTheme = theme);
+      this.data.getDefaultColors().subscribe(defaultColors => this.defaultColors = defaultColors);
   }
 
   ngOnChanges() {
@@ -48,6 +48,7 @@ export class PieChartComponent implements OnInit, AfterViewInit {
           .dimension(this.ndxService.runDimension)
           .group(this.ndxService.exptSumGroup)
           .innerRadius(50)
+          .colors(dc.config.defaultColors())
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
               console.log('click!', d);
@@ -63,6 +64,10 @@ export class PieChartComponent implements OnInit, AfterViewInit {
           });
       this.chart.render();
     }
+  }
+
+  updateChart() {
+    this.chart.colors(dc.config.defaultColors()).redraw();
   }
 
   onResize() {

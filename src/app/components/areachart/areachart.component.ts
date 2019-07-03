@@ -41,6 +41,7 @@ export class AreaChartComponent implements OnInit, AfterViewInit {
           .renderDataPoints(true)
           .clipPadding(10)
           .yAxisLabel('This is the Y Axis!')
+          .colors(dc.config.defaultColors())
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
               console.log('click!', d);
@@ -65,6 +66,10 @@ export class AreaChartComponent implements OnInit, AfterViewInit {
    return function n(d) {
              return d.value[i];
            };
+ }
+
+ updateChart() {
+     this.chart.colors(dc.config.defaultColors()).redraw();
  }
 
   onResize() {

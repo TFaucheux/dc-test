@@ -49,6 +49,7 @@ export class SeriesChartComponent implements OnInit, AfterViewInit {
           .keyAccessor(d => +d.key[1])
           .valueAccessor(d => +d.value - 500)
           .legend(dc.legend().x(100).y(220).itemHeight(13).gap(5).horizontal(true).legendWidth(300).itemWidth(40))
+          .colors(dc.config.defaultColors())
           // .on('renderlet', chart => {
           //   chart.selectAll('rect').on('click', d => {
           //     console.log('click!', d);
@@ -67,6 +68,11 @@ export class SeriesChartComponent implements OnInit, AfterViewInit {
 
     }
   }
+
+  updateChart() {
+    this.chart.colors(dc.config.defaultColors()).redraw();
+  }
+
 
   onResize() {
     this.chart.redraw();

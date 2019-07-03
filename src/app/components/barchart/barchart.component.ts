@@ -43,6 +43,7 @@ export class BarChartComponent implements OnInit, AfterViewInit {
           .y(d3.scaleLinear().domain([0, 200]))
           .brushOn(false)
           .yAxisLabel('This is the Y Axis!')
+          .colors(dc.config.defaultColors())
           // .on('renderlet', chart => {
           //   chart.selectAll('rect').on('click', d => {
           //     console.log('click!', d);
@@ -68,6 +69,10 @@ export class BarChartComponent implements OnInit, AfterViewInit {
 
   sel_stack(i) {
     return d => d.value[i];
+  }
+
+  updateChart() {
+    this.chart.colors(dc.config.defaultColors()).redraw();
   }
 
   onResize() {
