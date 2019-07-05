@@ -4,7 +4,8 @@ import { ViewChildren, QueryList } from '@angular/core';
 import * as d3 from 'd3';
 import * as dc from 'dc';
 import {AppStateService} from './services/AppStateService';
-import {of} from 'rxjs';
+
+import {DatacountComponent} from './components/datacount/datacount.component';
 import {ChloroplethComponent} from './components/chloropleth/chloropleth.component';
 import {CompositeChartComponent} from './components/compositechart/compositechart.component';
 import {HeatMapComponent} from './components/heatmap/heatmap.component';
@@ -14,6 +15,7 @@ import {RowChartComponent} from './components/rowchart/rowchart.component';
 import {ScatterPlotComponent} from './components/scatterplot/scatterplot.component';
 import {SeriesChartComponent} from './components/serieschart/serieschart.component';
 import {BoxPlotComponent} from './components/boxplot/boxplot.component';
+// import {NdxService} from './services/ndx.service';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +41,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(public data: AppStateService) {
   }
 
+  // public dataCount: dc.dataCount;
   public defaultTheme: string;
   public defaultColors: string;
 
@@ -49,7 +52,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     'BrBG', 'PRGn', 'PiYG', 'PuOr', 'RdBu', 'RdGy', 'RdYlBu', 'RdYlGn'];
 
   ngAfterViewInit() {
-
+/*
+    this.dataCount
+        .crossfilter(this.ndxService.ndx)
+        .groupAll(this.ndxService.all);
+*/
     const select = d3.select('#themePicker')
         .append('select')
         .attr('class', 'select')

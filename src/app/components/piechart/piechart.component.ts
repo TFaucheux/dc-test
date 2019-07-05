@@ -45,23 +45,25 @@ export class PieChartComponent implements OnInit, AfterViewInit {
       this.chart = dc.pieChart(this.chartDiv.nativeElement);
       this.chart
           .width(400).height(200)
-          .dimension(this.ndxService.runDimension)
-          .group(this.ndxService.exptSumGroup)
+          .useViewBoxResizing(true)
+    .dimension(this.ndxService.stateDimension)
+          .group(this.ndxService.stateGroup)
           .innerRadius(50)
           .colors(dc.config.defaultColors())
-          .on('renderlet', chart => {
-            chart.selectAll('rect').on('click', d => {
-              console.log('click!', d);
-            });
-          })
-          .on('preRedraw', chart => {
-            const width: number = this.chartDiv.nativeElement.offsetWidth;
-            const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-
-            chart.width(newWidth).transitionDuration(0);
-            chart.transitionDuration(750);
-            chart.render();
-          });
+          // .on('renderlet', chart => {
+          //   chart.selectAll('rect').on('click', d => {
+          //     console.log('click!', d);
+          //   });
+          // })
+          // .on('preRedraw', chart => {
+          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
+          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
+          //
+          //   chart.width(newWidth).transitionDuration(0);
+          //   chart.transitionDuration(750);
+          //   chart.render();
+          // });
+          ;
       this.chart.render();
     }
   }

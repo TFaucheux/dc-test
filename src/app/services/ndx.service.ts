@@ -12,9 +12,11 @@ import {NdxProvider} from '../ndx-provider';
 @Injectable()
 export class NdxService {
 
-  private ndx: CrossFilter.Crossfilter<IData>;
+  public ndx: CrossFilter.Crossfilter<IData>;
   public data: IData[] = [];
   public isLoaded = false;
+
+  public all: any; // = this.ndx.groupAll();
 
   @Input() regionDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() stateDimension: Dimension<IData, NaturallyOrderedValue>;
@@ -60,6 +62,8 @@ export class NdxService {
     console.log('ndxService: completeData() - this.data:');
     this.ndx = crossfilter(this.data);
     console.log(this.ndx);
+
+    this.all = this.ndx.groupAll();
 
     // Dimensions
 
@@ -150,8 +154,13 @@ export class NdxService {
     // console.log(this.exptSumGroup.all());
     // console.log(this.runGroup.all());
     // console.log(this.speedExptSumGroup.all());
-      console.log(this.regionValueSumGroup.all());
+    // console.log(this.regionValueSumGroup.all());
   }
+
+ resetAll() {
+     dc.filterAll();
+     dc.renderAll();
+ }
 
  // Initialize routine to call from Service Constructor()
  initNdxService() {
@@ -159,6 +168,9 @@ export class NdxService {
     dc.config.defaultColors(d3.scaleOrdinal(d3.schemeBlues[9]));
     this.getData();
     this.groupData();
+    console.log(this.ndx);
+    console.log(this.all);
+
   }
 
 }

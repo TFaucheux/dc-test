@@ -68,8 +68,8 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
                return feature.path();
            });
 */
-         console.log('chloropleth')
-         console.log(dc.config.defaultColors());
+         // console.log('chloropleth')
+         // console.log(dc.config.defaultColors());
          this.chart
               .dimension(this.ndxService.regionDimension)
               .group(this.ndxService.regionValueSumGroup)

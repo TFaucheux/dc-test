@@ -1,0 +1,15 @@
+<div #chartContainer *ngIf="ndxService.isLoaded">
+<div #dataCount class="row">
+         <span class="dc-data-count text-center" id="data-count">
+           <span class="text-light">&nbsp;</span>
+           <span class="filter-count"></span>
+           <span class="text-warning"> records selected, out of </span>
+           <span class="total-count"></span>
+           <span class="text-warning"> event records </span>
+           <span class="text-light">|</span>
+<!--           <a class="text-light" style="color: green !important;" href="javascript:resetAll();"><b>Reset All</b></a>-->
+           <button class="btn-outline-primary" (click)="resetAll()">Reset All</button>
+         </span>
+</div>
+</div>
+

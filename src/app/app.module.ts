@@ -3,6 +3,8 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+
+import { DatacountComponent} from './components/datacount/datacount.component';
 import { BarChartComponent } from './components/barchart/barchart.component';
 import { RowChartComponent } from './components/rowchart/rowchart.component';
 import { AreaChartComponent } from './components/areachart/areachart.component';
@@ -28,6 +30,7 @@ export function ndxProviderFactory(provider: NdxProvider) {
 @NgModule({
   declarations: [
     AppComponent,
+    DatacountComponent,
     BarChartComponent,
     RowChartComponent,
     AreaChartComponent,
