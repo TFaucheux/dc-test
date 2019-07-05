@@ -1,6 +1,5 @@
 import {Component, ViewChild, ElementRef, AfterViewInit, OnInit} from '@angular/core';
 
-// import * as d3 from 'd3';
 import * as dc from 'dc';
 import {NdxService} from '../../services/ndx.service';
 
@@ -10,9 +9,9 @@ import {NdxService} from '../../services/ndx.service';
   styleUrls: ['./datacount.component.css'],
   providers: []
 })
-export class DatacountComponent implements OnInit, AfterViewInit {
+export class DataCountComponent implements OnInit, AfterViewInit {
 
-  public title = 'datacount';
+  public title = 'datacount works!';
   public dataCount: dc.dataCount;
   public isLoaded = false;
 

@@ -91,3 +91,9 @@ footer {
   }
 }
 
+.reset {
+    padding-left: 1em;
+    font-size: smaller;
+    text-decoration: underline;
+    /*color: #E6550D;*/
+}

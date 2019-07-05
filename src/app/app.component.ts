@@ -5,7 +5,6 @@ import * as d3 from 'd3';
 import * as dc from 'dc';
 import {AppStateService} from './services/AppStateService';
 
-import {DatacountComponent} from './components/datacount/datacount.component';
 import {ChloroplethComponent} from './components/chloropleth/chloropleth.component';
 import {CompositeChartComponent} from './components/compositechart/compositechart.component';
 import {HeatMapComponent} from './components/heatmap/heatmap.component';
@@ -15,13 +14,12 @@ import {RowChartComponent} from './components/rowchart/rowchart.component';
 import {ScatterPlotComponent} from './components/scatterplot/scatterplot.component';
 import {SeriesChartComponent} from './components/serieschart/serieschart.component';
 import {BoxPlotComponent} from './components/boxplot/boxplot.component';
-// import {NdxService} from './services/ndx.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./css/font-awesome.min.css',
-              './app.css',
+              './style.css',
               './app.component.css']
 })
 

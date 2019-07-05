@@ -1,11 +1,4 @@
-#data-count-div {
-    min-height: 24px;
-    margin-top: 50px;
-    display: contents;
-}
-
-#data-count {
-    margin-top: 2px;
+#themePicker {
+    margin-top: 4px;
     margin-bottom: 2px;
-
 }

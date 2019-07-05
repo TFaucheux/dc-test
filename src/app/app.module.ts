@@ -4,8 +4,9 @@ import { HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
-import { DatacountComponent} from './components/datacount/datacount.component';
+import { DataCountComponent } from './components/datacount/datacount.component';
 import { BarChartComponent } from './components/barchart/barchart.component';
+import { BubbleChartComponent } from './components/bubblechart/bubblechart.component';
 import { RowChartComponent } from './components/rowchart/rowchart.component';
 import { AreaChartComponent } from './components/areachart/areachart.component';
 import { LineChartComponent } from './components/linechart/linechart.component';
@@ -30,8 +31,9 @@ export function ndxProviderFactory(provider: NdxProvider) {
 @NgModule({
   declarations: [
     AppComponent,
-    DatacountComponent,
+    DataCountComponent,
     BarChartComponent,
+    BubbleChartComponent,
     RowChartComponent,
     AreaChartComponent,
     LineChartComponent,

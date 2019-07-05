@@ -80,6 +80,11 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
     this.chart.colors(dc.config.defaultColors()).redraw();
   }
 
+  reset() {
+    this.chart.filterAll();
+    this.chart.redraw();
+  }
+
   onResize() {
     this.chart.redraw();
   }

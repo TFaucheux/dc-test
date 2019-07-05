@@ -149,8 +149,9 @@ export class NdxService {
     // Log out Group data for diagnostics if needed
     // console.log('ndxService: completeData() - this.speedSumGroup.all():');
     // console.log(this.speedSumGroup.all());
+    // console.log(this.speedArrayGroup.all());
     // console.log(this.speedGroup.all());
-    // console.log(this.exptGroup.all());
+    console.log(this.exptGroup.all());
     // console.log(this.exptSumGroup.all());
     // console.log(this.runGroup.all());
     // console.log(this.speedExptSumGroup.all());
