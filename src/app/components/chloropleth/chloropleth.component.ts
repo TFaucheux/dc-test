@@ -2,11 +2,9 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/
 
 import * as d3 from 'd3';
 import * as dc from 'dc';
-import * as topojson from 'topojson';
 
 import {NdxService} from '../../services/ndx.service';
 import {AppStateService} from '../../services/AppStateService';
-import {path} from 'd3';
 
 @Component({
   selector: 'app-chloropleth',
@@ -44,42 +42,36 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
             .useViewBoxResizing(true);
 
       d3.json('assets/data/geo/us-states.json').then((states: any) => {
-/*
-         const lookup = {
-             53 : 'WA',
-             41 : 'OR',
-             6 : 'CA',
-             // ...
-         };
 
-         const regions = [
-             {name: 'northwest', contains: [ 'WA', 'OR', 'CA' ] }
-             // ...
-        ];
-
-       // const path: SVGPathElement = [];
-         const svg = d3.select('svg');
-         svg.selectAll(null)
-           .data(regions)
-           .enter()
-           .append('path')
-           .attr('d', (region: any) => {
-               const feature = topojson.merge(states, states.objects.states.geometries.filter(state => region.contains.indexOf(lookup[state.id]) > -1));
-               return feature.path();
-           });
-*/
-         // console.log('chloropleth')
-         // console.log(dc.config.defaultColors());
+       //   const lookup = {
+       //       53 : 'WA',
+       //       41 : 'OR',
+       //       6 : 'CA',
+       //       // ...
+       //   };
+       //
+       //   const regions = [
+       //       {name: 'northwest', contains: [ 'WA', 'OR', 'CA' ] }
+       //       // ...
+       //  ];
+       //
+       // // const path: SVGPathElement = [];
+       //   const svg = d3.select('svg');
+       //   svg.selectAll(null)
+       //     .data(regions)
+       //     .enter()
+       //     .append('path')
+       //     .attr('d', (region: any) => {
+       //         const feature = topojson.merge(states, states.objects.states.geometries.filter(state => region.contains.indexOf(lookup[state.id]) > -1));
+       //         return geoPath(feature);
+       //     });
          this.chart
               .dimension(this.ndxService.regionDimension)
               .group(this.ndxService.regionValueSumGroup)
               .colors(dc.config.defaultColors())
-              // .colors(this.defaultColors.split(','))
-              // .colors(['#ccc', '#E2F2FF', '#C4E4FF', '#9ED2FF', '#81C5FF', '#6BBAFF', '#51AEFF', '#36A2FF', '#1E96FF', '#0089FF'])
-              // .colors(['#f7fcf5','#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b'])
               .colorDomain([0, 20000])
               .overlayGeoJson(states.features, 'region', d => d.properties.region);
-          this.chart.render();
+         this.chart.render();
       });
     }
   }

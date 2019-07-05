@@ -37,24 +37,25 @@ export class RowChartComponent implements OnInit, AfterViewInit {
           .margins({top: 10, right: 30, bottom: 30, left: 30})
           .width(380)
           .height(280)
+          .useViewBoxResizing(true)
           .x(d3.scaleLinear().domain([6, 20]))
           .elasticX(true)
           .renderTitleLabel(false)
-          .colors(dc.config.defaultColors())
+          .colors(dc.config.defaultColors());
           // .on('renderlet', chart => {
           //   chart.selectAll('rect').on('click', d => {
           //     console.log('click!', d);
           //   });
           // })
-          .on('preRedraw', chart => {
-            const width: number = this.chartDiv.nativeElement.offsetWidth;
-            const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-
-            //chart.fixedBarHeight( chartheight - (count + 1) * gap / count);
-            chart.width(newWidth).transitionDuration(0);
-            chart.transitionDuration(750);
-            chart.render();
-          });
+          // .on('preRedraw', chart => {
+          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
+          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
+          //
+          //   //chart.fixedBarHeight( chartheight - (count + 1) * gap / count);
+          //   chart.width(newWidth).transitionDuration(0);
+          //   chart.transitionDuration(750);
+          //   chart.render();
+          // });
 
       this.chart.render();
     }

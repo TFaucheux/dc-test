@@ -36,6 +36,7 @@ export class BarChartComponent implements OnInit, AfterViewInit {
           .margins({top: 10, right: 30, bottom: 30, left: 30})
           .width(380)
           .height(280)
+          .useViewBoxResizing(true)
           .title(function(d) {
             return d.key + '[' + this.layer + ']: ' + d.value[this.layer];
           })
@@ -49,13 +50,13 @@ export class BarChartComponent implements OnInit, AfterViewInit {
           //     console.log('click!', d);
           //   })
           // })
-          .on('preRedraw', chart => {
-            const width: number = this.chartDiv.nativeElement.offsetWidth;
-            const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-
-            chart.width(newWidth).transitionDuration(0);
-            chart.transitionDuration(750);
-          })
+          // .on('preRedraw', chart => {
+          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
+          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
+          //
+          //   chart.width(newWidth).transitionDuration(0);
+          //   chart.transitionDuration(750);
+          // })
           .renderLabel(false);
 
       // for(let i = 2; i < 6; ++i) {

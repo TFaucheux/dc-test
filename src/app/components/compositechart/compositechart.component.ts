@@ -32,6 +32,7 @@ export class CompositeChartComponent implements OnInit, AfterViewInit {
       this.chart
           .width(380)
           .height(200)
+          .useViewBoxResizing(true)
           .margins({top: 10, right: 30, bottom: 30, left: 10})
           .x(d3.scaleLinear().domain([0, 20]))
           .yAxisLabel('The Y Axis')
@@ -52,13 +53,13 @@ export class CompositeChartComponent implements OnInit, AfterViewInit {
                 .dashStyle([5,5])
           ])
           .brushOn(false)
-          .colors(dc.config.defaultColors())
-          .on('preRedraw', chart => {
-            const width: number = this.chartDiv.nativeElement.offsetWidth;
-            const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-            chart.width(newWidth).transitionDuration(0);
-            chart.transitionDuration(750);
-          });
+          .colors(dc.config.defaultColors());
+          // .on('preRedraw', chart => {
+          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
+          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
+          //   chart.width(newWidth).transitionDuration(0);
+          //   chart.transitionDuration(750);
+          // });
 
         this.chart.yAxis().tickFormat(d => d3.format(',d')(d + 299500));
         this.chart.margins().left += 40;

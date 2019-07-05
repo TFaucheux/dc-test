@@ -32,12 +32,11 @@ export class SeriesChartComponent implements OnInit, AfterViewInit {
       this.chart
           .width(380)
           .height(280)
+          .useViewBoxResizing(true)
           .margins({top: 20, right: 30, bottom: 30, left: 30})
           .dimension(this.ndxService.exptRunDimension)
           .group(this.ndxService.runGroup)
-          .chart((c: dc.CompositeChart) => dc.lineChart(c).renderDataPoints(false).renderArea(false))
-          //.chart.chart.curve(d3.curveCardinal)
-          // .chart(c: LineCHart => dc.lineChart(c.curve(d3.curveCardinal.tension(0.5))))
+          .chart((c: dc.CompositeChart) => dc.lineChart(c).renderDataPoints(false).renderArea(false).curve(d3.curveCardinal))
           .x(d3.scaleLinear().domain([0, 20]))
           .brushOn(false)
           .yAxisLabel('Measured Speed km/s')
@@ -49,18 +48,18 @@ export class SeriesChartComponent implements OnInit, AfterViewInit {
           .keyAccessor(d => +d.key[1])
           .valueAccessor(d => +d.value - 500)
           .legend(dc.legend().x(100).y(220).itemHeight(13).gap(5).horizontal(true).legendWidth(300).itemWidth(40))
-          .colors(dc.config.defaultColors())
+          .colors(dc.config.defaultColors());
           // .on('renderlet', chart => {
           //   chart.selectAll('rect').on('click', d => {
           //     console.log('click!', d);
           //   });
           // })
-          .on('preRedraw', chart => {
-            const width: number = this.chartDiv.nativeElement.offsetWidth;
-            const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-            chart.width(newWidth).transitionDuration(0);
-            chart.transitionDuration(750);
-          });
+          // .on('preRedraw', chart => {
+          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
+          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
+          //   chart.width(newWidth).transitionDuration(0);
+          //   chart.transitionDuration(750);
+          // });
 
         this.chart.yAxis().tickFormat(d => d3.format(',d')(d + 299500));
         this.chart.margins().left += 40;

@@ -37,6 +37,7 @@ export class HeatMapComponent implements OnInit, AfterViewInit {
           .margins({top: 20, right: 30, bottom: 20, left: 30})
           .width(380)
           .height(300)
+          .useViewBoxResizing(true)
           .keyAccessor(function(d) { return +d.key[0]; })
           .valueAccessor(function(d) { return +d.key[1]; })
           .colors(dc.config.defaultColors())
@@ -51,14 +52,14 @@ export class HeatMapComponent implements OnInit, AfterViewInit {
           //     console.log('click!', d);
           //   });
           // })
-          .on('preRedraw', chart => {
-            const width: number = this.chartDiv.nativeElement.offsetWidth;
-            const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-
-            chart.width(newWidth).transitionDuration(0);
-            chart.transitionDuration(750);
-            chart.render();
-          })
+          // .on('preRedraw', chart => {
+          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
+          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
+          //
+          //   chart.width(newWidth).transitionDuration(0);
+          //   chart.transitionDuration(750);
+          //   chart.render();
+          // })
           .colors(dc.config.defaultColors())
           // .colors(['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58'])
           // .calculateColorDomain()
