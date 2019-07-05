@@ -44,7 +44,7 @@ export class SeriesChartComponent implements OnInit, AfterViewInit {
           // .xAxisLabel('Run')
           // .clipPadding(10)
           .elasticY(true)
-          .mouseZoomable(true)
+          .mouseZoomable(false)
           .seriesAccessor(d => 'Ex:' + d.key[0])
           .keyAccessor(d => +d.key[1])
           .valueAccessor(d => +d.value - 500)

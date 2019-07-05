@@ -40,12 +40,14 @@ export class CompositeChartComponent implements OnInit, AfterViewInit {
           .compose([
             dc.lineChart(this.chart)
                 .dimension(this.ndxService.runDimension)
-                .colors('red')
+                .colors(dc.config.defaultColors())
+                // .colors('red')
                 .group(this.ndxService.exptGroup, 'Top Line')
                 .dashStyle([2,2]),
             dc.lineChart(this.chart)
                 .dimension(this.ndxService.runDimension)
-                .colors('blue')
+                .colors(dc.config.defaultColors())
+                // .colors('blue')
                 .group(this.ndxService.speedSumGroup, 'Bottom Line')
                 .dashStyle([5,5])
           ])

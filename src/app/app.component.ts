@@ -1,4 +1,6 @@
 import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
+import { ViewChildren, QueryList } from '@angular/core';
+
 import * as d3 from 'd3';
 import * as dc from 'dc';
 import {AppStateService} from './services/AppStateService';
@@ -23,15 +25,16 @@ import {BoxPlotComponent} from './components/boxplot/boxplot.component';
 
 export class AppComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(ChloroplethComponent, { static: false} ) chloropleth: ChloroplethComponent;
-  @ViewChild(CompositeChartComponent, { static: false} ) compositeChart: CompositeChartComponent;
-  @ViewChild(HeatMapComponent, { static: false} ) heatMap: HeatMapComponent;
-  @ViewChild(LineChartComponent, { static: false} ) lineChart: LineChartComponent;
-  @ViewChild(PieChartComponent, { static: false} ) pieChart: PieChartComponent;
-  @ViewChild(RowChartComponent, { static: false} ) rowChart: RowChartComponent;
-  @ViewChild(ScatterPlotComponent, { static: false} ) scatterPlot: ScatterPlotComponent;
-  @ViewChild(SeriesChartComponent, { static: false} ) seriesChart: SeriesChartComponent;
-  @ViewChild(BoxPlotComponent, { static: false} ) boxplot: BoxPlotComponent;
+  /** Get handle on cmp tags in the template */
+  @ViewChildren(ChloroplethComponent) chloropleth: QueryList<ChloroplethComponent>;
+  @ViewChildren(CompositeChartComponent) compositeChart: QueryList<CompositeChartComponent>;
+  @ViewChildren(HeatMapComponent) heatMap: QueryList<HeatMapComponent>;
+  @ViewChildren(LineChartComponent) lineChart: QueryList<LineChartComponent>;
+  @ViewChildren(PieChartComponent) pieChart: QueryList<PieChartComponent>;
+  @ViewChildren(RowChartComponent) rowChart: QueryList<RowChartComponent>;
+  @ViewChildren(ScatterPlotComponent) scatterPlot: QueryList<ScatterPlotComponent>;
+  @ViewChildren(SeriesChartComponent) seriesChart: QueryList<SeriesChartComponent>;
+  @ViewChildren(BoxPlotComponent) boxplot: QueryList<BoxPlotComponent>;
 
   constructor(public data: AppStateService) {
   }
@@ -46,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     'BrBG', 'PRGn', 'PiYG', 'PuOr', 'RdBu', 'RdGy', 'RdYlBu', 'RdYlGn'];
 
   ngAfterViewInit() {
+
     const select = d3.select('#themePicker')
         .append('select')
         .attr('class', 'select')
@@ -129,15 +133,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     // update charts to reflect color changes
-    this.chloropleth.updateChart();
-    this.compositeChart.updateChart();
-    this.heatMap.updateChart();
-    this.lineChart.updateChart();
-    this.pieChart.updateChart();
-    this.rowChart.updateChart();
-    this.scatterPlot.updateChart();
-    this.seriesChart.updateChart();
-    this.boxplot.updateChart();
+    this.chloropleth.forEach((child) => child.updateChart());
+    this.compositeChart.forEach((child) => child.updateChart());
+    this.heatMap.forEach((child) => child.updateChart());
+    this.lineChart.forEach((child) => child.updateChart());
+    this.pieChart.forEach((child) => child.updateChart());
+    this.rowChart.forEach((child) => child.updateChart());
+    this.scatterPlot.forEach((child) => child.updateChart());
+    this.seriesChart.forEach((child) => child.updateChart());
+    this.boxplot.forEach((child) => child.updateChart());
 
     // dc.redrawAll();
     // dc.renderAll();
