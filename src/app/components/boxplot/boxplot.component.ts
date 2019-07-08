@@ -36,27 +36,9 @@ export class BoxPlotComponent implements OnInit, AfterViewInit {
           .group(this.ndxService.speedArrayGroup)
           .margins({top: 10, right: 30, bottom: 30, left: 30})
           .elasticY(true)
-          .elasticX(true)
-          .colors(dc.config.defaultColors());
-          // .on('renderlet', chart => {
-          //   chart.selectAll('rect').on('click', d => {
-          //     console.log('click!', d);
-          //   });
-          // })
-          // .on('preRedraw', chart => {
-          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
-          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-          //
-          //   chart.width(newWidth).transitionDuration(0);
-          //   chart.transitionDuration(750);
-          //   chart.render();
-          // });
-/*
-      const xAxisChart = this.chart.xAxis();
-      xAxisChart.ticks(6).tickFormat(d3.format('d'));
-      const yAxisChart = this.chart.yAxis();
-      yAxisChart.ticks(6).tickFormat(d3.format('d'));
-*/
+          .elasticX(true);
+
+      this.chart.colors(dc.config.defaultColors());
       this.chart.render();
     }
   }

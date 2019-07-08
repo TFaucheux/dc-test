@@ -34,13 +34,13 @@ export class AggDataComponent implements OnInit, AfterViewInit {
 //          .width(380)
 //          .height(280)
           .showGroups(true)
-          //.showSections(false)
+          // .showSections(false)
           .columns([d => d.key,
               d => d.value.total,
               d => d.value.avg])
           .sortBy(d => d.value.avg)
           .order(d3.descending)
-          //.colors(dc.config.defaultColors())
+          // .colors(dc.config.defaultColors())
           .on('renderlet', chart => {
             chart.selectAll('rect').on('click', d => {
               console.log('click!', d);

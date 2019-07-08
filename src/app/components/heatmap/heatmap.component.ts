@@ -32,38 +32,20 @@ export class HeatMapComponent implements OnInit, AfterViewInit {
       // https://github.com/dc-js/dc.js/blob/master/web/examples/row-targets.html
       this.chart = dc.heatMap(this.chartDiv.nativeElement);
       this.chart
-          .dimension(this.ndxService.runDimension)
-          .group(this.ndxService.runGroup)
-          .margins({top: 20, right: 30, bottom: 20, left: 30})
           .width(380)
           .height(300)
+          .margins({top: 20, right: 30, bottom: 20, left: 30})
           .useViewBoxResizing(true)
-          .keyAccessor(function(d) { return +d.key[0]; })
-          .valueAccessor(function(d) { return +d.key[1]; })
-          .colors(dc.config.defaultColors())
-          .colorAccessor(function(d) { return +d.value; })
-          .title(function(d) {
-              return 'Run:   ' + d.key[0] + '\n' +
-                  'Expt:  ' + d.key[1] + '\n' +
-                  'Speed: ' + (299000 + d.value) + ' km/s';})
-          //.calculateColorDomain()
-          // .on('renderlet', chart => {
-          //   chart.selectAll('rect').on('click', d => {
-          //     console.log('click!', d);
-          //   });
-          // })
-          // .on('preRedraw', chart => {
-          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
-          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-          //
-          //   chart.width(newWidth).transitionDuration(0);
-          //   chart.transitionDuration(750);
-          //   chart.render();
-          // })
-          .colors(dc.config.defaultColors())
-          // .colors(['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58'])
-          // .calculateColorDomain()
+          .dimension(this.ndxService.runDimension)
+          .group(this.ndxService.runGroup)
+          .keyAccessor(d => +d.key[0])
+          .valueAccessor(d => +d.key[1])
+          .colorAccessor(d => +d.value)
+          .title(d => 'Run:   ' + d.key[0] + '\n' +
+              'Expt:  ' + d.key[1] + '\n' +
+              'Speed: ' + (299000 + d.value) + ' km/s');
 
+      this.chart.colors(dc.config.defaultColors());
       this.chart.render();
     }
   }

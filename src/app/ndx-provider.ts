@@ -3,6 +3,8 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {IData} from './models/Data';
 import { catchError, map } from 'rxjs/operators';
 import {throwError as observableThrowError} from 'rxjs';
+import * as d3 from 'd3';
+import * as dc from 'dc';
 
 @Injectable()
 export class NdxProvider {
@@ -10,7 +12,9 @@ export class NdxProvider {
     public data: IData[] = [];
     dataUrl = 'assets/data/data.json';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+        dc.config.defaultColors(d3.scaleOrdinal(d3.schemeBlues[9]));
+    }
 
     public getData(): IData[] {
         console.log(this.data);
@@ -26,7 +30,6 @@ export class NdxProvider {
                 .subscribe(response => {
                     this.data = response;
                     console.log('ndx loading complete')
-                    //console.log(this.data);
                     resolve(true);
                 }), catchError(this.handleError);
         });

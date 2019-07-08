@@ -44,25 +44,13 @@ export class BarChartComponent implements OnInit, AfterViewInit {
           .y(d3.scaleLinear().domain([0, 200]))
           .brushOn(false)
           .yAxisLabel('This is the Y Axis!')
-          .colors(dc.config.defaultColors())
-          // .on('renderlet', chart => {
-          //   chart.selectAll('rect').on('click', d => {
-          //     console.log('click!', d);
-          //   })
-          // })
-          // .on('preRedraw', chart => {
-          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
-          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-          //
-          //   chart.width(newWidth).transitionDuration(0);
-          //   chart.transitionDuration(750);
-          // })
           .renderLabel(false);
 
       // for(let i = 2; i < 6; ++i) {
       //   this.chart.stack(this.ndxService.speedExptSumGroup, '' + i, this.sel_stack(i));
       // }
       //
+      this.chart.colors(dc.config.defaultColors());
       this.chart.render();
     }
   }

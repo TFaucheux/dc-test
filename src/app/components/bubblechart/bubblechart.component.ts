@@ -59,35 +59,18 @@ export class BubbleChartComponent implements OnInit, AfterViewInit {
           .title(p => p.key
               + '\n'
               + 'total ' + numberFormat(p.value.total) + 'M\n'
-              + 'Number of Expt: ' + numberFormat(p.value.expt))
-          .colors(dc.config.defaultColors());
-          // .on('renderlet', chart => {
-          //   chart.selectAll('rect').on('click', d => {
-          //     console.log('click!', d);
-          //   });
-          // })
-          // .on('preRedraw', chart => {
-          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
-          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-          //
-          //   chart.width(newWidth).transitionDuration(0);
-          //   chart.transitionDuration(750);
-          // });
+              + 'Number of Expt: ' + numberFormat(p.value.expt));
 
-        // this.chart.yAxis().tickFormat(s => s + ' deals');
-        // this.chart.xAxis().tickFormat(s => s + 'M');
-
-
+      this.chart.colors(dc.config.defaultColors());
       this.chart.render();
-
     }
   }
 
-  sel_stack(i) {
-   return function n(d) {
-             return d.value[i];
-           };
- }
+ //  sel_stack(i) {
+ //   return function n(d) {
+ //             return d.value[i];
+ //           };
+ // }
 
  updateChart() {
      this.chart.colors(dc.config.defaultColors()).redraw();

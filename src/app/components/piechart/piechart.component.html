@@ -1,7 +1,6 @@
 <div #chartContainer *ngIf="ndxService.isLoaded">
    <div #chartDiv (window:resize)="onResize()">
-   <a class="reset" href="javascript:reset()" (click)="reset()" style="display: none;">reset</a>
-   <p>{{defaultTheme}}</p>
+   <a class="reset" href="javascript:this.reset()" (click)="this.reset()" style="display: none;">reset</a>
    </div>
 </div>
 

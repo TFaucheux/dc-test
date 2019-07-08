@@ -19,6 +19,7 @@ export class NdxService {
   public all: any; // = this.ndx.groupAll();
 
   @Input() regionDimension: Dimension<IData, NaturallyOrderedValue>;
+  @Input() regionPieDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() stateDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() runDimension: Dimension<IData, NaturallyOrderedValue>;
   @Input() exptRunDimension: Dimension<IData, NaturallyOrderedValue>;
@@ -27,6 +28,7 @@ export class NdxService {
   @Input() exptDimension: Dimension<IData, NaturallyOrderedValue>;
 
   @Input() regionValueSumGroup: any;
+  @Input() regionPieGroup: any;
   @Input() regionGroup: any;
   @Input() stateValueSumGroup: any;
   @Input() stateGroup: any;
@@ -59,19 +61,14 @@ export class NdxService {
   }
 
   groupData() {
-    console.log('ndxService: completeData() - this.data:');
+    console.log('ndxService: groupData() - started');
     this.ndx = crossfilter(this.data);
-    console.log(this.ndx);
-
     this.all = this.ndx.groupAll();
 
     // Dimensions
-
-    this.stateDimension = this.ndx.dimension((d) => {return d.state;});
-    this.stateGroup = this.stateDimension.group();
     this.regionDimension = this.ndx.dimension((d) => {return d.region;});
-    this.regionGroup = this.stateDimension.group();
-
+    this.regionPieDimension = this.ndx.dimension((d) => {return d.region;});
+    this.stateDimension = this.ndx.dimension((d) => {return d.state;});
 
     this.expt2Dimension = this.ndx.dimension((d: IData) => { return +d.expt;});
     this.runDimension = this.ndx.dimension((d: IData) => { return +d.run;});
@@ -80,8 +77,11 @@ export class NdxService {
     this.exptDimension = this.ndx.dimension(d => 'exp-' + d.expt);
 
     // Groups
-    this.stateValueSumGroup = this.stateDimension.group().reduceSum((d) => d.speed);
+    this.stateGroup = this.stateDimension.group();
+    this.regionGroup = this.regionDimension.group();
+    this.regionPieGroup = this.regionDimension.group();
     this.regionValueSumGroup = this.regionDimension.group().reduceSum((d) => d.speed);
+    this.stateValueSumGroup = this.stateDimension.group().reduceSum((d) => d.speed);
 
     this.speedGroup = this.runSpeedDimension.group().reduceSum( d => (d.speed * d.run / 1000) * Math.floor(Math.random() * (1000)) + 1);
     this.speedSumGroup = this.runDimension.group().reduceSum(d => d.speed * d.run / 1000);
@@ -151,11 +151,13 @@ export class NdxService {
     // console.log(this.speedSumGroup.all());
     // console.log(this.speedArrayGroup.all());
     // console.log(this.speedGroup.all());
-    console.log(this.exptGroup.all());
+    // console.log(this.exptGroup.all());
     // console.log(this.exptSumGroup.all());
     // console.log(this.runGroup.all());
     // console.log(this.speedExptSumGroup.all());
     // console.log(this.regionValueSumGroup.all());
+    // console.log(this.regionGroup.all());
+    // console.log(this.stateValueSumGroup.all());
   }
 
  resetAll() {
@@ -166,11 +168,9 @@ export class NdxService {
  // Initialize routine to call from Service Constructor()
  initNdxService() {
     console.log('ndxService: initNdxService() - started');
-    dc.config.defaultColors(d3.scaleOrdinal(d3.schemeBlues[9]));
+    // dc.config.defaultColors(d3.scaleOrdinal(d3.schemeBlues[9]));
     this.getData();
     this.groupData();
-    console.log(this.ndx);
-    console.log(this.all);
 
   }
 

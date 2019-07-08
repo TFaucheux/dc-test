@@ -6,6 +6,7 @@ import * as dc from 'dc';
 import {AppStateService} from './services/AppStateService';
 
 import {ChloroplethComponent} from './components/chloropleth/chloropleth.component';
+import {StateChloroplethComponent} from './components/statechloropleth/statechloropleth.component';
 import {CompositeChartComponent} from './components/compositechart/compositechart.component';
 import {HeatMapComponent} from './components/heatmap/heatmap.component';
 import {LineChartComponent} from './components/linechart/linechart.component';
@@ -14,6 +15,7 @@ import {RowChartComponent} from './components/rowchart/rowchart.component';
 import {ScatterPlotComponent} from './components/scatterplot/scatterplot.component';
 import {SeriesChartComponent} from './components/serieschart/serieschart.component';
 import {BoxPlotComponent} from './components/boxplot/boxplot.component';
+import {BubbleChartComponent} from './components/bubblechart/bubblechart.component';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +29,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   /** Get handle on cmp tags in the template */
   @ViewChildren(ChloroplethComponent) chloropleth: QueryList<ChloroplethComponent>;
+  @ViewChildren(StateChloroplethComponent) statechloropleth: QueryList<StateChloroplethComponent>;
   @ViewChildren(CompositeChartComponent) compositeChart: QueryList<CompositeChartComponent>;
   @ViewChildren(HeatMapComponent) heatMap: QueryList<HeatMapComponent>;
   @ViewChildren(LineChartComponent) lineChart: QueryList<LineChartComponent>;
@@ -35,13 +38,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChildren(ScatterPlotComponent) scatterPlot: QueryList<ScatterPlotComponent>;
   @ViewChildren(SeriesChartComponent) seriesChart: QueryList<SeriesChartComponent>;
   @ViewChildren(BoxPlotComponent) boxplot: QueryList<BoxPlotComponent>;
+  @ViewChildren(BubbleChartComponent) bubblechart: QueryList<BubbleChartComponent>;
 
   constructor(public data: AppStateService) {
   }
 
   // public dataCount: dc.dataCount;
   public defaultTheme: string;
-  public defaultColors: string;
+  // public defaultColors: string;
 
   title = 'My title about whatever this is.';
   themes = ['Blues', 'Greens', 'Greys', 'Oranges', 'Purples', 'Reds', 'Spectral',
@@ -74,7 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.data.getTheme().subscribe(theme => this.defaultTheme = theme);
-    this.data.getDefaultColors().subscribe(defaultColors => this.defaultColors = defaultColors);
+    // this.data.getDefaultColors().subscribe(defaultColors => this.defaultColors = defaultColors);
   }
 
 /*
@@ -105,7 +109,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.data.setTheme(selectValue);
     this.defaultTheme = selectValue;
 
-    console.log(d3.schemeBlues[9].toString());
     switch (selectValue) {
       case 'Blues': dc.config.defaultColors(d3.scaleOrdinal(d3.schemeBlues[9])); break;
       case 'Greens': dc.config.defaultColors(d3.scaleOrdinal(d3.schemeGreens[9])); break;
@@ -138,15 +141,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     // update charts to reflect color changes
-    this.chloropleth.forEach((child) => child.updateChart());
+    this.pieChart.forEach((child) => child.updateChart());
+    this.boxplot.forEach((child) => child.updateChart());
+    this.scatterPlot.forEach((child) => child.updateChart());
+    this.bubblechart.forEach((child) => child.updateChart());
     this.compositeChart.forEach((child) => child.updateChart());
     this.heatMap.forEach((child) => child.updateChart());
     this.lineChart.forEach((child) => child.updateChart());
     this.pieChart.forEach((child) => child.updateChart());
     this.rowChart.forEach((child) => child.updateChart());
-    this.scatterPlot.forEach((child) => child.updateChart());
     this.seriesChart.forEach((child) => child.updateChart());
-    this.boxplot.forEach((child) => child.updateChart());
+    this.chloropleth.forEach((child) => child.updateChart());
+    this.statechloropleth.forEach((child) => child.updateChart());
 
     // dc.redrawAll();
     // dc.renderAll();

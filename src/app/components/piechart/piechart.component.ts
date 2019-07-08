@@ -13,8 +13,8 @@ import {ScaleOrdinal} from 'd3-scale';
 })
 export class PieChartComponent implements OnInit, AfterViewInit {
 
-  public defaultTheme: string;
-  public defaultColors: string;
+  // public defaultTheme: string;
+  // public defaultColors: string;
   public title = 'chart works!';
   public chart: dc.PieChart;
   public isLoaded = false;
@@ -27,8 +27,8 @@ export class PieChartComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-      this.data.getTheme().subscribe(theme => this.defaultTheme = theme);
-      this.data.getDefaultColors().subscribe(defaultColors => this.defaultColors = defaultColors);
+      // this.data.getTheme().subscribe(theme => this.defaultTheme = theme);
+      // this.data.getDefaultColors().subscribe(defaultColors => this.defaultColors = defaultColors);
   }
 
   ngOnChanges() {
@@ -46,24 +46,10 @@ export class PieChartComponent implements OnInit, AfterViewInit {
       this.chart
           .width(400).height(200)
           .useViewBoxResizing(true)
-    .dimension(this.ndxService.stateDimension)
-          .group(this.ndxService.stateGroup)
-          .innerRadius(50)
-          .colors(dc.config.defaultColors())
-          // .on('renderlet', chart => {
-          //   chart.selectAll('rect').on('click', d => {
-          //     console.log('click!', d);
-          //   });
-          // })
-          // .on('preRedraw', chart => {
-          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
-          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-          //
-          //   chart.width(newWidth).transitionDuration(0);
-          //   chart.transitionDuration(750);
-          //   chart.render();
-          // });
-          ;
+          .dimension(this.ndxService.regionPieDimension)
+          .group(this.ndxService.regionPieGroup)
+          .innerRadius(50);
+      this.chart.colors(dc.config.defaultColors())
       this.chart.render();
     }
   }

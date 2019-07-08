@@ -46,24 +46,13 @@ export class SeriesChartComponent implements OnInit, AfterViewInit {
           .mouseZoomable(false)
           .seriesAccessor(d => 'Ex:' + d.key[0])
           .keyAccessor(d => +d.key[1])
-          .valueAccessor(d => +d.value - 500)
-          .legend(dc.legend().x(100).y(220).itemHeight(13).gap(5).horizontal(true).legendWidth(300).itemWidth(40))
-          .colors(dc.config.defaultColors());
-          // .on('renderlet', chart => {
-          //   chart.selectAll('rect').on('click', d => {
-          //     console.log('click!', d);
-          //   });
-          // })
-          // .on('preRedraw', chart => {
-          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
-          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-          //   chart.width(newWidth).transitionDuration(0);
-          //   chart.transitionDuration(750);
-          // });
+          .valueAccessor(d => +d.value - 500);
 
-        this.chart.yAxis().tickFormat(d => d3.format(',d')(d + 299500));
-        this.chart.margins().left += 40;
-        this.chart.render();
+      this.chart.legend(dc.legend().x(100).y(220).itemHeight(13).gap(5).horizontal(true).legendWidth(300).itemWidth(40));
+      this.chart.yAxis().tickFormat(d => d3.format(',d')(d + 299500));
+      this.chart.margins().left += 40;
+      this.chart.colors(dc.config.defaultColors());
+      this.chart.render();
 
     }
   }

@@ -1,0 +1,8 @@
+<div #chartContainer *ngIf="ndxService.isLoaded">
+   <div #chartDiv (window:resize)="onResize()">
+<!--      <app-bubbleoverlay></app-bubbleoverlay>-->
+      <a class="reset" href="javascript:reset()" (click)="reset()" style="display: none;">reset</a>
+   <p>{{defaultTheme}}</p>
+   </div>
+</div>
+

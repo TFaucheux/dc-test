@@ -30,35 +30,24 @@ export class AreaChartComponent implements OnInit, AfterViewInit {
     if (this.isLoaded) {
       this.chart = dc.lineChart(this.chartDiv.nativeElement);
       this.chart
+          .height(200)
+          .width(380)
+          .x(d3.scaleLinear().domain([6, 20]))
           .dimension(this.ndxService.runDimension)
           .group(this.ndxService.speedSumGroup)
           .margins({top: 20, right: 30, bottom: 20, left: 30})
-          .width(380)
-          .height(200)
           .useViewBoxResizing(true)
-          .x(d3.scaleLinear().domain([6, 20]))
           .brushOn(true)
           .renderArea(true)
           .renderDataPoints(true)
           .clipPadding(10)
-          .yAxisLabel('This is the Y Axis!')
-          .colors(dc.config.defaultColors());
-          // .on('renderlet', chart => {
-          //   chart.selectAll('rect').on('click', d => {
-          //     console.log('click!', d);
-          //   });
-          // })
-          // .on('preRedraw', chart => {
-          //   const width: number = this.chartDiv.nativeElement.offsetWidth;
-          //   const newWidth: number = this.chartContainer.nativeElement.offsetWidth;
-          //
-          //   chart.width(newWidth).transitionDuration(0);
-          //   chart.transitionDuration(750);
-          // });
+          .yAxisLabel('This is the Y Axis!');
 
-           for(var i = 2; i<6; ++i)
-              this.chart.stack(this.ndxService.speedSumGroup, ''+i, this.sel_stack(i));
-        this.chart.render();
+      for (let i = 2; i <6; ++i)
+              this.chart.stack(this.ndxService.speedSumGroup, '' +i, this.sel_stack(i));
+
+      this.chart.colors(dc.config.defaultColors());
+      this.chart.render();
 
     }
   }

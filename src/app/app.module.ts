@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { DataCountComponent } from './components/datacount/datacount.component';
 import { BarChartComponent } from './components/barchart/barchart.component';
 import { BubbleChartComponent } from './components/bubblechart/bubblechart.component';
+import {BubbleOverlayComponent} from './components/bubbleoverlay/bubbleoverlay.component';
 import { RowChartComponent } from './components/rowchart/rowchart.component';
 import { AreaChartComponent } from './components/areachart/areachart.component';
 import { LineChartComponent } from './components/linechart/linechart.component';
@@ -14,6 +15,7 @@ import { HeatMapComponent } from './components/heatmap/heatmap.component';
 import { SeriesChartComponent } from './components/serieschart/serieschart.component';
 import { CompositeChartComponent } from './components/compositechart/compositechart.component';
 import { ChloroplethComponent } from './components/chloropleth/chloropleth.component';
+import { StateChloroplethComponent } from './components/statechloropleth/statechloropleth.component';
 import { PieChartComponent } from './components/piechart/piechart.component';
 import { ScatterPlotComponent } from './components/scatterplot/scatterplot.component';
 import { BoxPlotComponent } from './components/boxplot/boxplot.component';
@@ -34,6 +36,7 @@ export function ndxProviderFactory(provider: NdxProvider) {
     DataCountComponent,
     BarChartComponent,
     BubbleChartComponent,
+    BubbleOverlayComponent,
     RowChartComponent,
     AreaChartComponent,
     LineChartComponent,
@@ -46,6 +49,7 @@ export function ndxProviderFactory(provider: NdxProvider) {
     NumberChartComponent,
     AggDataComponent,
     ChloroplethComponent,
+    StateChloroplethComponent,
   ],
   imports: [
     BrowserModule,

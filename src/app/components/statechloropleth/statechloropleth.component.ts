@@ -5,16 +5,18 @@ import * as dc from 'dc';
 
 import {NdxService} from '../../services/ndx.service';
 import {AppStateService} from '../../services/AppStateService';
+// import {BubbleOverlayComponent} from '../bubbleoverlay/bubbleoverlay.component';
 
 @Component({
-  selector: 'app-chloropleth',
-  templateUrl: './chloropleth.component.html',
-  styleUrls: ['./chloropleth.component.css'],
+  selector: 'app-statechloropleth',
+  templateUrl: './statechloropleth.component.html',
+  styleUrls: ['./statechloropleth.component.css'],
   providers: []
 })
-export class ChloroplethComponent implements OnInit, AfterViewInit {
+export class StateChloroplethComponent implements OnInit, AfterViewInit {
 
   public defaultTheme: string;
+  // public defaultColors: ScaleOrdinal<string, string>;
   // public defaultColors: string;
   public title = 'dc.js sub-chart works!';
   public isLoaded = false;
@@ -34,18 +36,16 @@ export class ChloroplethComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.isLoaded = this.ndxService.isLoaded;
     if (this.isLoaded) {
+
       d3.json('assets/data/geo/us-states.json').then((states: any) => {
-
         this.chart = dc.geoChoroplethChart(this.chartDiv.nativeElement)
-            .width(900)
-            .height(500)
+            .width(900).height(500)
             .useViewBoxResizing(true)
-            .dimension(this.ndxService.regionDimension)
-            .group(this.ndxService.regionValueSumGroup)
-            .colorDomain([0, 200])
-            .overlayGeoJson(states.features, 'region', d => d.properties.region);
-
-        this.chart.colors(dc.config.defaultColors());
+            .dimension(this.ndxService.stateDimension)
+            .group(this.ndxService.stateValueSumGroup)
+            .colorDomain([0, 20000])
+            .overlayGeoJson(states.features, 'name', d => d.properties.name);
+        this.chart.colors(dc.config.defaultColors())
         this.chart.render();
       });
     }
