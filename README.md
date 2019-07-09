@@ -6,7 +6,6 @@ This Repo: https://github.com/TFaucheux/dc-test
 #### Instructions:
 ```
   npm install
-  npm install popper.js
   ng serve 
      or
   nb build --prod
